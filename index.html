@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matteus da Costa — Senior Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Homemade+Apple&display=swap" rel="stylesheet" />
+  <style>
+
+    /* ─── Reset ─────────────────────────────────────── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: #F4F1EA;
+      color: #1E4D35;
+      font-family: "Work Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    /* ─── HERO ───────────────────────────────────────── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 620px;
+      max-height: 620px;
+      background: #F4F1EA;
+      color: #1E4D35;
+      overflow: hidden;
+    }
+
+    .navbar {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      color: #1E4D35;
+      user-select: none;
+    }
+    .nav-logo svg { width: 56px; height: 56px; display: block; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #1E4D35;
+      text-decoration-line: underline;
+      text-decoration-color: transparent;
+      text-decoration-thickness: 8%;
+      text-underline-offset: 25%;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1;
+      transition: text-decoration-color .2s ease;
+    }
+    .nav-links a:hover,
+    .nav-links a:focus-visible { text-decoration-color: #1E4D35; }
+
+    .hero-text {
+      position: absolute;
+      left: 60px;
+      right: 60px;
+      bottom: 80px;
+      color: #1E4D35;
+    }
+
+    .hero-line-1 {
+      font-size: 38px;
+      font-weight: 400;
+      line-height: 1.22;
+      letter-spacing: 0;
+      font-family: "Work Sans", system-ui, sans-serif;
+    }
+    .hero-line-1 .name {
+      font-style: italic;
+      font-weight: 500;
+    }
+    .hero-line-1 .pron {
+      font-size: 22px;
+      font-weight: 400;
+      opacity: .85;
+      margin-left: 2px;
+      font-style: normal;
+    }
+
+    .hero-line-2 {
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.22;
+      letter-spacing: 0;
+      font-family: "Work Sans", system-ui, sans-serif;
+    }
+
+    .hero-body {
+      margin-top: 28px;
+      font-size: 17px;
+      line-height: 1.6;
+      font-weight: 400;
+      color: #1E4D35;
+      max-width: 480px;
+    }
+    .hero-body strong { font-weight: 600; }
+
+
+    /* ─── CONTENT ────────────────────────────────────── */
+    .content-page {
+      width: 100%;
+      background: #F4F1EA;
+    }
+
+    .content-container {
+      max-width: 971px;
+      margin: 0 auto;
+      padding: 0 56px;
+    }
+
+    /* Shared type */
+    .section-label {
+      font-size: 16px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: rgba(30, 77, 53, .65);
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
+    .card-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: rgba(30, 77, 53, .65);
+      line-height: 1.4;
+    }
+
+    .card-title {
+      font-size: 24px;
+      font-weight: 500;
+      color: #1E4D35;
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(30, 77, 53, .65);
+      line-height: 1.55;
+    }
+
+    /* Card hover */
+    .work-card,
+    .hobby-card,
+    .case-card {
+      position: relative;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: 0 0 0 0 #EAE5D7;
+      transition: box-shadow .25s ease, border-radius .25s ease, background-color .25s ease;
+    }
+
+    .work-card:hover,
+    .hobby-card:hover,
+    .case-card:hover {
+      background: #EAE5D7;
+      border-radius: 14px;
+      box-shadow: 0 0 0 16px #EAE5D7;
+    }
+
+    /* Image surface */
+    .media {
+      position: relative;
+      display: block;
+      width: 100%;
+      background: #E2DDD0;
+      overflow: hidden;
+      cursor: pointer;
+      isolation: isolate;
+      border-radius: 0;
+      transition: border-radius .25s ease;
+    }
+
+    .media::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.32);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease;
+      z-index: 1;
+    }
+    .work-card:hover .media::after,
+    .hobby-card:hover .media::after,
+    .case-card:hover .media::after { opacity: 1; }
+
+    .work-card:hover .media,
+    .hobby-card:hover .media,
+    .case-card:hover .media { border-radius: 14px; }
+
+    .media .mockup {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+      transition: transform .5s cubic-bezier(.2,.7,.2,1);
+    }
+
+    .media .cta {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -42%);
+      background: #BFE3C8;
+      color: #1E4D35;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      padding: 12px 18px;
+      border-radius: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .25s ease, transform .35s cubic-bezier(.2,.7,.2,1);
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .work-card:hover .cta,
+    .hobby-card:hover .cta,
+    .case-card:hover .cta {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Section 1 — Selected work */
+    .section-selected { padding-top: 112px; }
+
+    .grid-3 {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .work-card { display: flex; flex-direction: column; gap: 8px; }
+    .work-card .card-label { margin-bottom: 0; }
+    .work-card .card-title { margin-top: 2px; }
+    .work-card .card-desc { margin-top: 28px; }
+    .work-card .media {
+      margin-top: 12px;
+      aspect-ratio: 4 / 3;
+    }
+
+    /* Section 2 — Case study */
+    .section-case { margin-top: 80px; }
+    .section-case .media {
+      margin-top: 24px;
+      height: 400px;
+    }
+    .section-case .case-meta {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .section-case .case-title {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1E4D35;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    /* Section 3 — Hobbies */
+    .section-hobbies { margin-top: 112px; padding-bottom: 112px; }
+    .hobbies-intro {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: rgba(30, 77, 53, .65);
+      line-height: 1;
+    }
+    .grid-2 {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+    }
+    .hobby-card { display: flex; flex-direction: column; gap: 8px; }
+    .hobby-card .card-title { margin-top: 2px; }
+    .hobby-card .card-desc { margin-top: 2px; }
+    .hobby-card .media {
+      margin-top: 16px;
+      height: 280px;
+    }
+
+
+    /* ─── ABOUT ──────────────────────────────────────── */
+    .about {
+      width: 100%;
+      background: #F4F1EA;
+      padding: 120px 56px 64px;
+    }
+
+    .about-inner {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .about-top {
+      display: grid;
+      grid-template-columns: 395px auto;
+      gap: 56px;
+      align-items: start;
+      width: max-content;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .col-text {
+      width: 395px;
+      background: #F4F1EA;
+      position: relative;
+      z-index: 2;
+    }
+
+    .accent-icon {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 56px;
+    }
+    .accent-icon svg { width: 40px; height: 40px; display: block; }
+
+    .about-headline {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: #1E4D35;
+      margin-bottom: 10px;
+      width: 395px;
+      text-wrap: pretty;
+    }
+
+    .about-location {
+      font-size: 13px;
+      font-weight: 500;
+      color: #1E4D35;
+      margin-bottom: 16px;
+    }
+
+    .about-body p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: #1E4D35;
+      width: 395px;
+    }
+    .about-body p + p { margin-top: 20px; }
+
+    .grid-scroll {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 224px);
+      grid-template-rows: repeat(2, 258px);
+      gap: 8px;
+      width: max-content;
+    }
+
+    .tile {
+      position: relative;
+      overflow: hidden;
+      background: #E2DDD0;
+      width: 224px;
+      height: 258px;
+    }
+    .tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .contributed { margin-top: 120px; }
+    .contributed-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1E4D35;
+      margin-bottom: 28px;
+    }
+
+    .logos {
+      --logo-w: 166px;
+      --logo-h: 112px;
+      --logo-count: 14;
+      --duration: 40s;
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+              mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+    }
+
+    .logos-track {
+      display: flex;
+      width: max-content;
+      animation: logo-scroll var(--duration) linear infinite;
+    }
+    .logos:hover .logos-track { animation-play-state: paused; }
+
+    .logos-group { display: flex; flex: 0 0 auto; }
+
+    .logo-item {
+      flex: 0 0 var(--logo-w);
+      width: var(--logo-w);
+      height: var(--logo-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1E4D35;
+    }
+    .logo-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+
+    @keyframes logo-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(calc(-1 * var(--logo-w) * var(--logo-count))); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .logos-track { animation: none; }
+    }
+
+
+    /* ─── EXPERIENCE ─────────────────────────────────── */
+    .experience {
+      width: 100%;
+      padding: 80px 56px;
+      background: #F4F1EA;
+    }
+
+    .exp-card {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border-radius: 16px 16px 0 0;
+      padding: 80px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .exp-header h2 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #1E4D35;
+      letter-spacing: -0.005em;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      font-family: "Work Sans", system-ui, sans-serif;
+    }
+
+    .cv-link {
+      display: inline-block;
+      font-size: 15px;
+      font-weight: 500;
+      color: #1E4D35;
+      text-decoration-line: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+      transition: text-decoration-thickness 0.2s ease, text-underline-offset 0.2s ease;
+    }
+    .cv-link:hover {
+      text-decoration-thickness: 2px;
+      text-underline-offset: 6px;
+    }
+
+    /* Timeline */
+    .jobs {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .jobs::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 13.5px;
+      bottom: -80px;
+      width: 1px;
+      background: rgba(30, 77, 53, .3);
+      pointer-events: none;
+    }
+
+    .job { position: relative; }
+
+    .job::before {
+      content: "";
+      position: absolute;
+      left: -28px;
+      top: 9px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #1E4D35;
+      z-index: 1;
+    }
+
+    .job-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1E4D35;
+      letter-spacing: -0.005em;
+      margin-bottom: 6px;
+      line-height: 1.3;
+      font-family: "Work Sans", system-ui, sans-serif;
+    }
+
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1E4D35;
+      margin-bottom: 14px;
+    }
+    .meta .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(30, 77, 53, .3);
+      flex: 0 0 auto;
+    }
+    .meta .job-location { color: #1E4D35; font-weight: 600; }
+
+    .clients-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #1E4D35;
+      margin-bottom: 4px;
+    }
+    .clients {
+      font-size: 15px;
+      font-weight: 600;
+      color: rgba(30, 77, 53, .65);
+    }
+
+
+    /* ─── FOOTER ─────────────────────────────────────── */
+    .footer {
+      width: 100%;
+      background: #F4F1EA;
+      padding: 56px 56px 40px;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .footer-top { margin-bottom: 80px; }
+
+    .footer-logo {
+      display: inline-flex;
+      width: 56px;
+      height: 56px;
+      color: #1E4D35;
+    }
+    .footer-logo svg { width: 56px; height: 56px; display: block; }
+
+    .footer-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .link-groups { display: flex; gap: 80px; }
+
+    .group-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(30, 77, 53, .65);
+      margin-bottom: 14px;
+      letter-spacing: 0.01em;
+    }
+
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .footer-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #1E4D35;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-decoration-line: underline;
+      text-decoration-color: transparent;
+      text-decoration-thickness: 1.5px;
+      text-underline-offset: 4px;
+      transition: text-decoration-color 0.2s ease;
+      padding: 2px 0;
+      width: fit-content;
+    }
+    .footer-link:hover,
+    .footer-link:focus-visible { text-decoration-color: #1E4D35; }
+
+    .footer-link .arrow {
+      display: inline-flex;
+      width: 18px;
+      height: 18px;
+      transition: transform 0.25s cubic-bezier(.4,.2,.2,1);
+    }
+    .footer-link:hover .arrow,
+    .footer-link:focus-visible .arrow { transform: translate(2px, -2px); }
+    .footer-link .arrow svg { width: 18px; height: 18px; display: block; }
+
+    .copyright {
+      font-size: 14px;
+      font-weight: 400;
+      color: #1E4D35;
+      line-height: 1;
+    }
+
+    .brand-banner {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1280 / 580;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .brand-banner__image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      z-index: 0;
+    }
+    .brand-banner__mark {
+      position: absolute;
+      left: 56px;
+      right: 56px;
+      bottom: 32px;
+      z-index: 1;
+      display: block;
+      pointer-events: none;
+    }
+    .brand-banner__mark img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       HERO
+       ════════════════════════════════════════ -->
+  <section class="hero" id="home">
+    <nav class="navbar" aria-label="Primary">
+      <a href="#home" class="nav-logo" aria-label="Home">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M33.6369 38.7179C34.2649 36.5498 35.7499 32.5383 39.2391 25.3237C39.6588 24.4565 40.0797 23.5994 40.4956 22.7631L51.3333 22.5618L51.2181 16.3411L43.7113 16.4804C45.0178 13.9932 45.9129 12.3638 45.93 12.3322L40.4791 9.33353C40.4544 9.37848 38.777 12.4322 36.6336 16.612L22.5086 16.8741C23.9266 14.166 24.9154 12.3657 24.9337 12.3328L19.4822 9.33353C19.4569 9.37974 17.6744 12.6253 15.4354 17.0052L4.66667 17.2052L4.78188 23.4259L12.3185 23.286C6.00738 36.4409 5.63897 40.3251 6.11689 42.3837C6.55177 44.2581 7.76841 45.5805 9.45538 46.0116C9.84658 46.1116 10.2473 46.1629 10.6606 46.1629C12.8635 46.1629 15.4373 44.717 18.9651 41.5519C21.4351 39.3357 23.4784 37.0524 23.5645 36.9568L18.9227 32.8137C16.8704 35.1134 14.4315 37.374 12.6407 38.7172C13.2686 36.5491 14.7537 32.5377 18.2428 25.3231C18.5967 24.5907 18.9518 23.8665 19.3044 23.1556L33.504 22.8923C33.4812 22.9391 33.4584 22.986 33.4363 23.0328C27.0081 36.3921 26.6327 40.3112 27.1138 42.3831C27.5487 44.2575 28.7653 45.5799 30.4523 46.0109C30.8435 46.111 31.2442 46.1622 31.6575 46.1622C33.8604 46.1622 36.4342 44.7164 39.962 41.5513C42.432 39.3351 44.4753 37.0518 44.5614 36.9562L39.9196 32.813C37.8673 35.1128 35.4284 37.3733 33.6376 38.7166L33.6369 38.7179Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="hero-text">
+      <div class="hero-line-1">
+        Call me <span class="name">Matteus</span><span class="pron"> [ma'tews].</span>
+      </div>
+      <div class="hero-line-2">&amp; I'm a Senior Product Designer</div>
+      <p class="hero-body">
+        I believe that a <strong>good design</strong> process always reflects
+        in the results, connecting <strong>customers to your product</strong>.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       CONTENT
+       ════════════════════════════════════════ -->
+  <main class="content-page" id="work">
+    <div class="content-container">
+
+      <!-- Selected Work -->
+      <section class="section-selected" aria-labelledby="selected-work-label">
+        <h2 id="selected-work-label" class="section-label">Selected Work</h2>
+        <div class="grid-3">
+
+          <article class="work-card">
+            <div class="card-label">for Marley Spoon Group</div>
+            <h3 class="card-title">Onboarding the new customers</h3>
+            <p class="card-desc">A redesigned signup flow that helps first-time customers cook with confidence from day one.</p>
+            <a href="#" class="media" aria-label="Open case study">
+              <svg class="mockup" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#3a2a24"/><stop offset=".55" stop-color="#a86a4a"/><stop offset="1" stop-color="#d3a07c"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#bg1)"/>
+                <g transform="translate(120 60)">
+                  <rect width="90" height="180" rx="14" fill="#FAF6EE"/>
+                  <rect x="8" y="14" width="74" height="10" rx="3" fill="#0d1e2a"/>
+                  <rect x="8" y="30" width="40" height="6" rx="2" fill="#cfd5dc"/>
+                  <rect x="8" y="44" width="74" height="40" rx="4" fill="#e6d3b8"/>
+                  <rect x="8" y="90" width="34" height="34" rx="4" fill="#c79b7a"/>
+                  <rect x="48" y="90" width="34" height="34" rx="4" fill="#5d4536"/>
+                  <rect x="8" y="130" width="74" height="6" rx="2" fill="#cfd5dc"/>
+                  <rect x="8" y="142" width="50" height="6" rx="2" fill="#cfd5dc"/>
+                </g>
+                <g transform="translate(220 70)">
+                  <rect width="90" height="180" rx="14" fill="#FAF6EE"/>
+                  <rect x="8" y="14" width="30" height="30" rx="15" fill="#BFE3C8"/>
+                  <rect x="44" y="22" width="38" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="44" y="32" width="28" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="8" y="56" width="74" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="8" y="68" width="60" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="8" y="82" width="74" height="36" rx="4" fill="#e9eef0"/>
+                  <rect x="8" y="126" width="74" height="22" rx="4" fill="#0d1e2a"/>
+                </g>
+              </svg>
+              <span class="cta">Read case</span>
+            </a>
+          </article>
+
+          <article class="work-card">
+            <div class="card-label">for Marley Spoon Group</div>
+            <h3 class="card-title">Reimagining the weekly menu</h3>
+            <p class="card-desc">Surfacing the right recipes at the right moment so subscribers stay engaged across the week.</p>
+            <a href="#" class="media" aria-label="Open case study">
+              <svg class="mockup" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#0d2237"/><stop offset="1" stop-color="#3a5a8a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#bg2)"/>
+                <g transform="translate(40 40)">
+                  <rect width="320" height="220" rx="8" fill="#FAF6EE"/>
+                  <rect width="320" height="24" rx="8" fill="#e9eef0"/>
+                  <circle cx="14" cy="12" r="3" fill="#cfd5dc"/>
+                  <circle cx="26" cy="12" r="3" fill="#cfd5dc"/>
+                  <circle cx="38" cy="12" r="3" fill="#cfd5dc"/>
+                  <rect x="16" y="40" width="80" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="16" y="52" width="50" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="16" y="68" width="92" height="60" rx="4" fill="#c79b7a"/>
+                  <rect x="114" y="68" width="92" height="60" rx="4" fill="#5d4536"/>
+                  <rect x="212" y="68" width="92" height="60" rx="4" fill="#1E4D35"/>
+                  <rect x="16" y="134" width="92" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="16" y="146" width="60" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="114" y="134" width="92" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="114" y="146" width="40" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="212" y="134" width="92" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="212" y="146" width="70" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="16" y="172" width="288" height="30" rx="4" fill="#BFE3C8"/>
+                </g>
+              </svg>
+              <span class="cta">Read case</span>
+            </a>
+          </article>
+
+          <article class="work-card">
+            <div class="card-label">for Marley Spoon Group</div>
+            <h3 class="card-title">A checkout that is part of the meal</h3>
+            <p class="card-desc">Reducing friction at the most critical step while keeping the brand voice warm and human.</p>
+            <a href="#" class="media" aria-label="Open case study">
+              <svg class="mockup" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#1E4D35"/><stop offset="1" stop-color="#7ba88a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="300" fill="url(#bg3)"/>
+                <g transform="translate(155 38)">
+                  <rect width="90" height="220" rx="16" fill="#FAF6EE"/>
+                  <rect x="30" y="6" width="30" height="4" rx="2" fill="#0d1e2a"/>
+                  <rect x="10" y="22" width="70" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="10" y="34" width="50" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="10" y="50" width="70" height="30" rx="4" fill="#e9eef0"/>
+                  <rect x="14" y="58" width="40" height="4" rx="2" fill="#0d1e2a"/>
+                  <rect x="14" y="68" width="24" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="10" y="86" width="70" height="30" rx="4" fill="#e9eef0"/>
+                  <rect x="14" y="94" width="40" height="4" rx="2" fill="#0d1e2a"/>
+                  <rect x="14" y="104" width="24" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="10" y="122" width="70" height="30" rx="4" fill="#e9eef0"/>
+                  <rect x="14" y="130" width="40" height="4" rx="2" fill="#0d1e2a"/>
+                  <rect x="14" y="140" width="24" height="4" rx="2" fill="#cfd5dc"/>
+                  <rect x="10" y="168" width="70" height="22" rx="4" fill="#0d1e2a"/>
+                  <rect x="10" y="196" width="70" height="4" rx="2" fill="#cfd5dc"/>
+                </g>
+              </svg>
+              <span class="cta">Read case</span>
+            </a>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Case Study -->
+      <section class="section-case" aria-labelledby="case-study-label">
+        <h2 id="case-study-label" class="section-label">Case Study</h2>
+        <article class="case-card">
+          <a href="#" class="media" aria-label="Open AB InBev case study">
+            <svg class="mockup" viewBox="0 0 900 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <linearGradient id="bg4" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#1a1a1a"/><stop offset="1" stop-color="#3a3a3a"/>
+                </linearGradient>
+              </defs>
+              <rect width="900" height="400" fill="url(#bg4)"/>
+              <g transform="translate(120 50)">
+                <rect width="660" height="300" rx="10" fill="#FAF6EE"/>
+                <rect width="660" height="32" rx="10" fill="#e9eef0"/>
+                <circle cx="18" cy="16" r="4" fill="#cfd5dc"/>
+                <circle cx="34" cy="16" r="4" fill="#cfd5dc"/>
+                <circle cx="50" cy="16" r="4" fill="#cfd5dc"/>
+                <rect x="0" y="32" width="140" height="268" fill="#f3efe6"/>
+                <rect x="16" y="56" width="100" height="8" rx="3" fill="#0d1e2a"/>
+                <rect x="16" y="76" width="80" height="6" rx="2" fill="#cfd5dc"/>
+                <rect x="16" y="92" width="100" height="6" rx="2" fill="#cfd5dc"/>
+                <rect x="16" y="108" width="70" height="6" rx="2" fill="#cfd5dc"/>
+                <rect x="16" y="124" width="90" height="6" rx="2" fill="#cfd5dc"/>
+                <g transform="translate(160 56)">
+                  <rect width="150" height="70" rx="6" fill="#e6d3b8"/>
+                  <rect x="160" width="150" height="70" rx="6" fill="#BFE3C8"/>
+                  <rect x="320" width="160" height="70" rx="6" fill="#1E4D35"/>
+                  <rect x="12" y="12" width="60" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="12" y="30" width="100" height="14" rx="3" fill="#0d1e2a"/>
+                  <rect x="172" y="12" width="60" height="6" rx="2" fill="#0d1e2a"/>
+                  <rect x="172" y="30" width="100" height="14" rx="3" fill="#0d1e2a"/>
+                  <rect x="332" y="12" width="70" height="6" rx="2" fill="#FAF6EE"/>
+                  <rect x="332" y="30" width="110" height="14" rx="3" fill="#FAF6EE"/>
+                </g>
+                <g transform="translate(160 140)">
+                  <rect width="480" height="144" rx="6" fill="#f3efe6"/>
+                  <polyline points="20,110 60,90 100,100 140,70 180,80 220,50 260,60 300,40 340,55 380,30 420,40 460,20" fill="none" stroke="#1E4D35" stroke-width="3"/>
+                  <polyline points="20,124 60,118 100,120 140,108 180,112 220,98 260,102 300,90 340,94 380,82 420,86 460,76" fill="none" stroke="#c79b7a" stroke-width="2"/>
+                </g>
+              </g>
+            </svg>
+            <span class="cta">Read case</span>
+          </a>
+          <div class="case-meta">
+            <div class="card-label">for AB InBev</div>
+            <h3 class="case-title">Designing a brand new global delivery platform</h3>
+            <p class="card-desc">A unified ordering system spanning twelve markets, replacing legacy tools and shipping in under nine months.</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Hobbies -->
+      <section class="section-hobbies" aria-labelledby="hobbies-intro">
+        <p id="hobbies-intro" class="hobbies-intro">My hobbies</p>
+        <div class="grid-2">
+
+          <article class="hobby-card">
+            <div class="card-label">to capture my vision</div>
+            <h3 class="card-title">Personal archive of photos</h3>
+            <p class="card-desc">A slow-collected library of street, light, and architecture frames I keep returning to for inspiration.</p>
+            <a href="https://instagram.com/fotosdomatteus" class="media" aria-label="Open photo archive" target="_blank" rel="noopener">
+              <svg class="mockup" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <rect width="600" height="280" fill="#1a1a1a"/>
+                <g transform="translate(30 30)">
+                  <rect x="0" y="0" width="170" height="100" fill="#5d4536"/>
+                  <rect x="185" y="0" width="170" height="100" fill="#a86a4a"/>
+                  <rect x="370" y="0" width="170" height="100" fill="#3a5a8a"/>
+                  <rect x="0" y="115" width="170" height="100" fill="#1E4D35"/>
+                  <rect x="185" y="115" width="170" height="100" fill="#c79b7a"/>
+                  <rect x="370" y="115" width="170" height="100" fill="#0d2237"/>
+                </g>
+              </svg>
+              <span class="cta">View archive</span>
+            </a>
+          </article>
+
+          <article class="hobby-card">
+            <div class="card-label">for personal projects</div>
+            <h3 class="card-title">Redesigning old studies</h3>
+            <p class="card-desc">Revisiting school work with fresh eyes — a sandbox for trying new layouts, type pairings, and ideas.</p>
+            <a href="#" class="media" aria-label="Open studies">
+              <svg class="mockup" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <defs>
+                  <linearGradient id="bg6" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#e6d3b8"/><stop offset="1" stop-color="#c79b7a"/>
+                  </linearGradient>
+                </defs>
+                <rect width="600" height="280" fill="url(#bg6)"/>
+                <g transform="translate(60 36)">
+                  <rect width="220" height="208" fill="#FAF6EE"/>
+                  <rect x="20" y="24" width="180" height="10" fill="#0d1e2a"/>
+                  <rect x="20" y="42" width="120" height="6" fill="#cfd5dc"/>
+                  <rect x="20" y="58" width="180" height="100" fill="#e9eef0"/>
+                  <circle cx="110" cy="108" r="34" fill="#1E4D35"/>
+                  <rect x="20" y="170" width="160" height="6" fill="#cfd5dc"/>
+                  <rect x="20" y="184" width="110" height="6" fill="#cfd5dc"/>
+                </g>
+                <g transform="translate(320 36)">
+                  <rect width="220" height="208" fill="#FAF6EE"/>
+                  <rect x="20" y="24" width="60" height="60" fill="#a86a4a"/>
+                  <rect x="90" y="24" width="110" height="8" fill="#0d1e2a"/>
+                  <rect x="90" y="40" width="90" height="6" fill="#cfd5dc"/>
+                  <rect x="90" y="54" width="110" height="6" fill="#cfd5dc"/>
+                  <rect x="90" y="68" width="70" height="6" fill="#cfd5dc"/>
+                  <rect x="20" y="100" width="180" height="4" fill="#0d1e2a"/>
+                  <rect x="20" y="118" width="180" height="6" fill="#cfd5dc"/>
+                  <rect x="20" y="132" width="180" height="6" fill="#cfd5dc"/>
+                  <rect x="20" y="146" width="140" height="6" fill="#cfd5dc"/>
+                  <rect x="20" y="172" width="180" height="24" fill="#1E4D35"/>
+                </g>
+              </svg>
+              <span class="cta">View studies</span>
+            </a>
+          </article>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+
+  <!-- ════════════════════════════════════════
+       ABOUT
+       ════════════════════════════════════════ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-top">
+
+        <div class="col-text">
+          <div class="accent-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip-about-icon)">
+                <path d="M20 0C20 10.545 11.8882 19.1904 1.58301 20C11.8882 20.8096 20 29.455 20 40H0V0H20ZM40 40H20C20 29.4553 28.1113 20.81 38.416 20C28.1113 19.19 20 10.5447 20 0H40V40Z" fill="#F4683D"/>
+              </g>
+              <defs>
+                <clipPath id="clip-about-icon">
+                  <rect width="40" height="40" fill="white"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </div>
+
+          <h2 class="about-headline">Design is how I turn ambiguity into outcomes.</h2>
+          <div class="about-location">From Recife, Brazil... Living in Porto, Portugal.</div>
+
+          <div class="about-body">
+            <p>I've been working at the intersection where business pressure meets user behaviour — turning ambiguous problems into experiences that perform. I've shipped in B2B and D2C from logistics, SaaS, payment systems, design systems across multiple brands at global scale and much more....</p>
+            <p>Adopted AI across my entire workflow — except for ideation, which I keep stubbornly human, because that's where the interesting stuff lives.</p>
+          </div>
+        </div>
+
+        <div class="grid-scroll">
+          <div class="photo-grid" aria-label="Photo grid">
+            <div class="tile"><img src="assets/about-0.png" alt="Palm trees in Recife" /></div>
+            <div class="tile"><img src="assets/about-1.png" alt="Portrait of Matteus" /></div>
+            <div class="tile"><img src="assets/about-2.png" alt="Team in the field" /></div>
+            <div class="tile"><img src="assets/about-3.png" alt="Porto street at sunset" /></div>
+            <div class="tile"><img src="assets/about-4.png" alt="Passport photos" /></div>
+            <div class="tile"><img src="assets/about-5.png" alt="Cat on the keyboard" /></div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="contributed">
+        <div class="contributed-label">Where I've contributed</div>
+        <div class="logos" role="list" aria-label="Logos of companies I've contributed to">
+          <div class="logos-track">
+            <div class="logos-group" aria-hidden="false">
+              <span class="logo-item" role="listitem"><img src="assets/logo01.svg" alt="Logo 01" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo02.svg" alt="Logo 02" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo03.svg" alt="Logo 03" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo04.svg" alt="Logo 04" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo05.svg" alt="Logo 05" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo06.svg" alt="Logo 06" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo07.svg" alt="Logo 07" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo08.svg" alt="Logo 08" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo09.svg" alt="Logo 09" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo10.svg" alt="Logo 10" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo11.svg" alt="Logo 11" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo12.svg" alt="Logo 12" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo13.svg" alt="Logo 13" /></span>
+              <span class="logo-item" role="listitem"><img src="assets/logo14.svg" alt="Logo 14" /></span>
+            </div>
+            <div class="logos-group" aria-hidden="true">
+              <span class="logo-item"><img src="assets/logo01.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo02.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo03.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo04.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo05.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo06.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo07.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo08.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo09.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo10.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo11.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo12.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo13.svg" alt="" /></span>
+              <span class="logo-item"><img src="assets/logo14.svg" alt="" /></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       EXPERIENCE
+       ════════════════════════════════════════ -->
+  <section class="experience" id="experience">
+    <div class="exp-card">
+
+      <div class="exp-header">
+        <h2>Experience</h2>
+        <a href="assets/matteusdacosta-cv26.pdf" class="cv-link" target="_blank" rel="noopener">Download CV</a>
+      </div>
+
+      <div class="jobs">
+        <article class="job">
+          <h3 class="job-title">Product Designer at Marley Spoon</h3>
+          <div class="meta">
+            <span class="dates">Oct 2024—Present</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="job-location">Porto, Portugal (Remote)</span>
+          </div>
+        </article>
+
+        <article class="job">
+          <h3 class="job-title">UX &amp; Product Designer @ Try Consulting</h3>
+          <div class="meta">
+            <span class="dates">April 2023—October 2023</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="job-location">Recife, Brasil (Remote)</span>
+          </div>
+          <div class="clients-label">CLIENTS</div>
+          <div class="clients">Fiserv, Itáu, Banco Central do Brasil (BACEM)</div>
+        </article>
+
+        <article class="job">
+          <h3 class="job-title">Freelancing</h3>
+          <div class="meta">
+            <span class="dates">Oct 2023—Oct 2024</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="job-location">Recife &amp; Porto (Remote)</span>
+          </div>
+          <div class="clients-label">CLIENTS</div>
+          <div class="clients">Kipon, Herdei, Minds</div>
+        </article>
+
+        <article class="job">
+          <h3 class="job-title">UX &amp; Product Designer @ Thoughtworks</h3>
+          <div class="meta">
+            <span class="dates">May 2021—February 2023</span>
+            <span class="dot" aria-hidden="true"></span>
+            <span class="job-location">Recife, Brasil (Hybrid)</span>
+          </div>
+          <div class="clients-label">CLIENTS</div>
+          <div class="clients">AB Inbev</div>
+        </article>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+       ════════════════════════════════════════ -->
+  <footer class="footer" id="contact">
+    <div class="footer-top">
+      <a href="#home" class="footer-logo" aria-label="Back to top">
+        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M33.6369 38.7179C34.2649 36.5498 35.7499 32.5383 39.2391 25.3237C39.6588 24.4565 40.0797 23.5994 40.4956 22.7631L51.3333 22.5618L51.2181 16.3411L43.7113 16.4804C45.0178 13.9932 45.9129 12.3638 45.93 12.3322L40.4791 9.33353C40.4544 9.37848 38.777 12.4322 36.6336 16.612L22.5086 16.8741C23.9266 14.166 24.9154 12.3657 24.9337 12.3328L19.4822 9.33353C19.4569 9.37974 17.6744 12.6253 15.4354 17.0052L4.66667 17.2052L4.78188 23.4259L12.3185 23.286C6.00738 36.4409 5.63897 40.3251 6.11689 42.3837C6.55177 44.2581 7.76841 45.5805 9.45538 46.0116C9.84658 46.1116 10.2473 46.1629 10.6606 46.1629C12.8635 46.1629 15.4373 44.717 18.9651 41.5519C21.4351 39.3357 23.4784 37.0524 23.5645 36.9568L18.9227 32.8137C16.8704 35.1134 14.4315 37.374 12.6407 38.7172C13.2686 36.5491 14.7537 32.5377 18.2428 25.3231C18.5967 24.5907 18.9518 23.8665 19.3044 23.1556L33.504 22.8923C33.4812 22.9391 33.4584 22.986 33.4363 23.0328C27.0081 36.3921 26.6327 40.3112 27.1138 42.3831C27.5487 44.2575 28.7653 45.5799 30.4523 46.0109C30.8435 46.111 31.2442 46.1622 31.6575 46.1622C33.8604 46.1622 36.4342 44.7164 39.962 41.5513C42.432 39.3351 44.4753 37.0518 44.5614 36.9562L39.9196 32.813C37.8673 35.1128 35.4284 37.3733 33.6376 38.7166L33.6369 38.7179Z" fill="currentColor"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="link-groups">
+        <div class="group">
+          <div class="group-title">Find me</div>
+          <ul class="link-list">
+            <li>
+              <a href="https://linkedin.com/in/matteusdacosta" class="footer-link" target="_blank" rel="noopener">
+                <span>LinkedIn</span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.3448 10.9657L13.5 10.9657L13.5 4.5L7.03435 4.5L7.03435 6.65522H9.82197L4.5 11.9772L6.02281 13.5L11.3464 8.1796L11.3448 10.9657Z" fill="#1E4D35"/></svg>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://behance.net/matteusdacosta" class="footer-link" target="_blank" rel="noopener">
+                <span>Behance</span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.3448 10.9657L13.5 10.9657L13.5 4.5L7.03435 4.5L7.03435 6.65522H9.82197L4.5 11.9772L6.02281 13.5L11.3464 8.1796L11.3448 10.9657Z" fill="#1E4D35"/></svg>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://dribbble.com/matteusdacosta" class="footer-link" target="_blank" rel="noopener">
+                <span>Dribbble</span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.3448 10.9657L13.5 10.9657L13.5 4.5L7.03435 4.5L7.03435 6.65522H9.82197L4.5 11.9772L6.02281 13.5L11.3464 8.1796L11.3448 10.9657Z" fill="#1E4D35"/></svg>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="https://instagram.com/fotosdomatteus" class="footer-link" target="_blank" rel="noopener">
+                <span>Instagram</span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.3448 10.9657L13.5 10.9657L13.5 4.5L7.03435 4.5L7.03435 6.65522H9.82197L4.5 11.9772L6.02281 13.5L11.3464 8.1796L11.3448 10.9657Z" fill="#1E4D35"/></svg>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="group">
+          <div class="group-title">Let's connect</div>
+          <ul class="link-list">
+            <li>
+              <a href="mailto:matteus@mailbox.org" class="footer-link">
+                <span>Email</span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.3448 10.9657L13.5 10.9657L13.5 4.5L7.03435 4.5L7.03435 6.65522H9.82197L4.5 11.9772L6.02281 13.5L11.3464 8.1796L11.3448 10.9657Z" fill="#1E4D35"/></svg>
+                </span>
+              </a>
+            </li>
+            <li>
+              <!-- TODO: replace # with your Cal.com or Calendly link when ready -->
+              <a href="#" class="footer-link">
+                <span>Book a Call</span>
+                <span class="arrow" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11.3448 10.9657L13.5 10.9657L13.5 4.5L7.03435 4.5L7.03435 6.65522H9.82197L4.5 11.9772L6.02281 13.5L11.3464 8.1796L11.3448 10.9657Z" fill="#1E4D35"/></svg>
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="copyright">All rights reserved to Matteus da Costa &copy; 2026</div>
+    </div>
+  </footer>
+
+  <section class="brand-banner" aria-label="Matteus da Costa, Designer">
+    <img class="brand-banner__image" src="assets/footer-banner.jpg" alt="" />
+    <div class="brand-banner__mark" aria-hidden="true">
+      <img src="assets/logotype-full.svg" alt="" />
+    </div>
+  </section>
+
+</body>
+</html>
