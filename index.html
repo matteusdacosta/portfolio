@@ -21,10 +21,35 @@
       --color-surface-placeholder: #E2DDD0;
       --color-accent:              #BFE3C8;
       --color-accent-icon:         #F4683D;
+
+      --grid-columns:   12;
+      --grid-gutter:    16px;
+      --layout-max:     1440px;
+      --layout-margin:  56px;
     }
 
     /* ─── Reset ─────────────────────────────────────── */
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ─── Layout ────────────────────────────────────── */
+    .layout {
+      width: 100%;
+      max-width: var(--layout-max);
+      margin-inline: auto;
+      padding-inline: var(--layout-margin);
+      box-sizing: border-box;
+    }
+    @media (min-width: 1440px) {
+      .layout { padding-inline: 0; }
+    }
+
+    @media (min-width: 1280px) {
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-columns), 1fr);
+        gap: var(--grid-gutter);
+      }
+    }
 
     html, body {
       background: var(--color-bg);
@@ -138,12 +163,6 @@
     .content-page {
       width: 100%;
       background: var(--color-bg);
-    }
-
-    .content-container {
-      max-width: 971px;
-      margin: 0 auto;
-      padding: 0 56px;
     }
 
     /* Shared type */
@@ -332,12 +351,7 @@
     .about {
       width: 100%;
       background: var(--color-bg);
-      padding: 120px 56px 64px;
-    }
-
-    .about-inner {
-      width: 100%;
-      margin: 0 auto;
+      padding: 120px 0 64px;
     }
 
     .about-top {
@@ -477,7 +491,7 @@
     /* ─── EXPERIENCE ─────────────────────────────────── */
     .experience {
       width: 100%;
-      padding: 80px 56px;
+      padding: 80px 0;
       background: var(--color-bg);
     }
 
@@ -599,8 +613,14 @@
     .footer {
       width: 100%;
       background: var(--color-bg);
-      padding: 56px 56px 40px;
+      padding: 56px 0 40px;
       min-height: 480px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .footer .layout {
+      flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -707,6 +727,38 @@
       display: block;
     }
 
+    /* ─── Desktop grid (≥ 1280px) ───────────────────── */
+    @media (min-width: 1280px) {
+
+      /* Hero: flex-center the layout wrapper so it's capped at 1440px */
+      .hero {
+        display: flex;
+        justify-content: center;
+      }
+      .hero .layout {
+        position: relative;
+        height: 100%;
+      }
+      /* Navbar: layout handles the horizontal margin, remove own padding */
+      .navbar {
+        padding-inline: 0;
+      }
+      /* Hero text: layout handles the horizontal margin */
+      .hero-text {
+        left: 0;
+        right: 0;
+      }
+
+      /* 12-col splits for two-column sections */
+      .exp-card {
+        grid-template-columns: 4fr 8fr; /* 4 + 8 = 12 cols */
+      }
+      .about-top {
+        grid-template-columns: 4fr 8fr; /* left text col + right image grid */
+        width: 100%;                    /* fluid fr units need a defined width */
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -715,6 +767,7 @@
        HERO
        ════════════════════════════════════════ -->
   <section class="hero" id="home">
+    <div class="layout">
     <nav class="navbar" aria-label="Primary">
       <a href="#home" class="nav-logo" aria-label="Home">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -739,6 +792,7 @@
         in the results, connecting <strong>customers to your product</strong>.
       </p>
     </div>
+    </div><!-- /.layout -->
   </section>
 
 
@@ -746,7 +800,7 @@
        CONTENT
        ════════════════════════════════════════ -->
   <main class="content-page" id="work">
-    <div class="content-container">
+    <div class="layout">
 
       <!-- Selected Work -->
       <section class="section-selected" aria-labelledby="selected-work-label">
@@ -990,7 +1044,7 @@
        ABOUT
        ════════════════════════════════════════ -->
   <section class="about" id="about">
-    <div class="about-inner">
+    <div class="layout">
       <div class="about-top">
 
         <div class="col-text">
@@ -1076,6 +1130,7 @@
        EXPERIENCE
        ════════════════════════════════════════ -->
   <section class="experience" id="experience">
+    <div class="layout">
     <div class="exp-card">
 
       <div class="exp-header">
@@ -1127,7 +1182,8 @@
         </article>
       </div>
 
-    </div>
+    </div><!-- /.exp-card -->
+    </div><!-- /.layout -->
   </section>
 
 
@@ -1135,6 +1191,7 @@
        FOOTER
        ════════════════════════════════════════ -->
   <footer class="footer" id="contact">
+    <div class="layout">
     <div class="footer-top">
       <a href="#home" class="footer-logo" aria-label="Back to top">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -1208,7 +1265,8 @@
       </div>
 
       <div class="copyright">All rights reserved to Matteus da Costa &copy; 2026</div>
-    </div>
+    </div><!-- /.footer-bottom -->
+    </div><!-- /.layout -->
   </footer>
 
   <section class="brand-banner" aria-label="Matteus da Costa, Designer">
