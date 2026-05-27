@@ -1,0 +1,64 @@
+/* ─────────────────────────────────────────────────────────
+   DESIGN TOKENS — Matteus da Costa Portfolio
+   Source of truth: STYLE_GUIDE.md
+   ─────────────────────────────────────────────────────────
+   Usage
+   -----
+   Import once in <head> before any other stylesheet.
+   Reference tokens via var(--token-name) in CSS.
+   Never hard-code a hex value — always use a token.
+   ───────────────────────────────────────────────────────── */
+
+:root {
+
+  /* ── Active palette — Bone ──────────────────────────── */
+  /* §2.1 — only these tokens are live in index.html       */
+
+  --color-bg:                  #F4F1EA; /* Page background, hero, about, footer      */
+  --color-text:                #1E4D35; /* All primary text, icons, nav links         */
+  --color-text-muted:          rgba(30, 77, 53, .65); /* Secondary text, labels       */
+  --color-text-soft:           rgba(30, 77, 53, .3);  /* Timeline line, dots, dividers*/
+  --color-surface:             #FFFFFF; /* Experience card background                 */
+  --color-surface-hover:       #EAE5D7; /* Card hover fill + box-shadow spread       */
+  --color-surface-placeholder: #E2DDD0; /* Image placeholders, empty tiles           */
+  --color-accent:              #BFE3C8; /* CTA pill on content cards                 */
+  --color-accent-icon:         #F4683D; /* About section accent icon                 */
+
+
+  /* ── Brand secondaries ──────────────────────────────── */
+  /* §2.2 — reference palette, not yet used in index.html  */
+
+  --color-deep-blue:      #09245B;
+  --color-celestial-blue: #569FD6;
+  --color-harmony-green:  #AFDDB6;
+  --color-vibrant-orange: #F4683D; /* Same hue as --color-accent-icon              */
+  --color-solar-yellow:   #F5E961;
+
+
+  /* ── Neutral / gray scale ───────────────────────────── */
+  /* §2.3 — reference palette, not yet used in index.html  */
+
+  --color-neutral-25:  #FDFDFD;
+  --color-neutral-50:  #FAFAFA;
+  --color-neutral-100: #F5F5F5;
+  --color-neutral-200: #E9EAEB;
+  --color-neutral-300: #D5D7DA;
+  --color-neutral-400: #A4A7AE;
+  --color-neutral-500: #717680;
+  --color-neutral-600: #535862;
+  --color-neutral-700: #414651;
+  --color-neutral-800: #252B37;
+  --color-neutral-900: #181D27;
+  --color-white:       #FFFFFF;
+  --color-black:       #000000;
+
+
+  /* ── Layout & grid ──────────────────────────────────── */
+  /* §4 + §8                                               */
+
+  --grid-columns:  12;
+  --grid-gutter:   16px;
+  --layout-max:    1440px;
+  --layout-margin: 56px;
+
+}
