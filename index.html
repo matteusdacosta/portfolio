@@ -39,14 +39,6 @@
       padding-inline: var(--layout-margin);
       box-sizing: border-box;
     }
-    @media (min-width: 1440px) {
-      .layout { padding-inline: 0; }
-      /* At 1440px+ the layout is max-width constrained and auto-centered —
-         its own auto margins create the visual gap, so reset the hero overrides */
-      .navbar    { padding-inline: 0; }
-      .hero-text { left: 0; right: 0; }
-    }
-
     @media (min-width: 1280px) {
       .grid {
         display: grid;
@@ -762,6 +754,15 @@
         grid-template-columns: 4fr 8fr; /* 4 + 8 = 12 cols */
       }
       /* .about-top uses flexbox — no grid override needed */
+    }
+
+    /* ─── Large screens (≥ 1440px) ──────────────────────
+       layout is max-width capped + auto-centered, so the
+       56px insets added for 1280–1439px must be reset.    */
+    @media (min-width: 1440px) {
+      .layout    { padding-inline: 0; }
+      .navbar    { padding-inline: 0; }
+      .hero-text { left: 0; right: 0; }
     }
 
   </style>
