@@ -41,6 +41,10 @@
     }
     @media (min-width: 1440px) {
       .layout { padding-inline: 0; }
+      /* At 1440px+ the layout is max-width constrained and auto-centered —
+         its own auto margins create the visual gap, so reset the hero overrides */
+      .navbar    { padding-inline: 0; }
+      .hero-text { left: 0; right: 0; }
     }
 
     @media (min-width: 1280px) {
@@ -742,14 +746,15 @@
         position: relative;
         height: 100%;
       }
-      /* Navbar: layout handles the horizontal margin, remove own padding */
+      /* Navbar: absolutely positioned, so layout padding doesn't apply —
+         give it explicit insets to match the 56px layout margin */
       .navbar {
-        padding-inline: 0;
+        padding-inline: var(--layout-margin);
       }
-      /* Hero text: layout handles the horizontal margin */
+      /* Hero text: same reason — explicit insets match the layout margin */
       .hero-text {
-        left: 0;
-        right: 0;
+        left: var(--layout-margin);
+        right: var(--layout-margin);
       }
 
       /* 12-col split for experience */
