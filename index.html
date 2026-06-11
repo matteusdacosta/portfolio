@@ -454,6 +454,7 @@
       --logo-w: 166px;
       --logo-h: 112px;
       --logo-count: 14;
+      --logo-gap: 32px; /* breathing room between bistroMD and Thoughtworks at the seam */
       --duration: 40s;
       position: relative;
       width: 100%;
@@ -470,6 +471,10 @@
     .logos:hover .logos-track { animation-play-state: paused; }
 
     .logos-group { display: flex; flex: 0 0 auto; }
+
+    /* exception: last logo of each group (bistroMD) gets extra space
+       before the next group starts with Thoughtworks */
+    .logos-group .logo-item:last-child { margin-right: var(--logo-gap); }
 
     .logo-item {
       flex: 0 0 var(--logo-w);
@@ -489,7 +494,7 @@
 
     @keyframes logo-scroll {
       from { transform: translateX(0); }
-      to   { transform: translateX(calc(-1 * var(--logo-w) * var(--logo-count))); }
+      to   { transform: translateX(calc(-1 * (var(--logo-w) * var(--logo-count) + var(--logo-gap)))); }
     }
     @media (prefers-reduced-motion: reduce) {
       .logos-track { animation: none; }
@@ -955,7 +960,7 @@
           </div>
 
           <h2 class="about-headline">Design is how I turn ambiguity into outcomes.</h2>
-          <div class="about-location">From Recife, Brazil... Living in Porto, Portugal.</div>
+          <div class="about-location">From Recife, Brasil... Living in Porto, Portugal.</div>
 
           <div class="about-body">
             <p>I've been working at the intersection where business pressure meets user behaviour — turning ambiguous problems into experiences that perform. I've shipped in B2B and D2C from logistics, SaaS, payment systems, design systems across multiple brands at global scale and much more....</p>
@@ -1028,7 +1033,7 @@
 
       <div class="exp-header">
         <h2>Experience</h2>
-        <a href="assets/matteusdacosta-cv26.pdf" class="cv-link" target="_blank" rel="noopener">Download CV</a>
+        <a href="assets/cv-matteusdacosta.pdf" class="cv-link" target="_blank" rel="noopener">Download CV</a>
       </div>
 
       <div class="jobs">
