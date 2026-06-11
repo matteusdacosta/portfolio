@@ -152,7 +152,7 @@
     /* Shared type */
     .section-label {
       font-size: 16px;
-      font-weight: 600;
+      font-weight: 550;
       text-transform: uppercase;
       color: var(--color-neutral-700);
       letter-spacing: 0;
@@ -236,6 +236,7 @@
       inset: 0;
       width: 100%;
       height: 100%;
+      object-fit: cover;
       display: block;
       opacity: 1;
       transform: scale(1);
@@ -311,7 +312,7 @@
     .section-hobbies { margin-top: 112px; padding-bottom: 112px; }
     .hobbies-intro {
       font-size: 16px;
-      font-weight: 700;
+      font-weight: 550;
       text-transform: uppercase;
       color: var(--color-neutral-700);
       line-height: 1;
@@ -508,7 +509,7 @@
       display: inline-block;
       font-size: 16px;
       font-weight: 500;
-      color: var(--color-tech-green);
+      color: var(--color-deep-blue);
       text-decoration-line: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 4px;
@@ -531,10 +532,10 @@
     .jobs::before {
       content: "";
       position: absolute;
-      left: 1.5px; /* keeps the 6px line centered under the 9px dots */
+      left: 7px; /* keeps the 2px line centered under the dots */
       top: 13.5px;
       bottom: -80px;
-      width: 6px;
+      width: 2px;
       border-radius: 9999px;
       background: var(--color-neutral-300);
       pointer-events: none;
@@ -545,13 +546,21 @@
     .job::before {
       content: "";
       position: absolute;
-      left: -28px;
-      top: 9px;
-      width: 9px;
-      height: 9px;
+      left: -26px;
+      top: 7.5px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--color-text);
       z-index: 1;
+    }
+
+    /* current role — larger marker */
+    .job:first-child::before {
+      left: -28px;
+      top: 5.5px;
+      width: 16px;
+      height: 16px;
     }
 
     .job-title {
@@ -583,16 +592,16 @@
     .meta .job-location { color: var(--color-black); font-weight: 400; }
 
     .clients-label {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 550;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--color-text);
+      color: var(--color-black);
       margin-bottom: 4px;
     }
     .clients {
-      font-size: 15px;
-      font-weight: 600;
+      font-size: 12px;
+      font-weight: 550;
       color: var(--color-neutral-700);
     }
 
@@ -800,108 +809,31 @@
         <div class="grid-3">
 
           <article class="work-card">
-            <div class="card-label">for Marley Spoon Group</div>
+            <div class="card-label">User Experience, Product Design</div>
             <h3 class="card-title">Unlocking Australia’s complex geography: from blocked postcodes to 20% CVR</h3>
             <p class="card-desc">A redesigned signup flow that helps first-time customers cook with confidence from day one.</p>
             <a href="#" class="media" aria-label="Open case study">
-              <svg class="mockup" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#3a2a24"/><stop offset=".55" stop-color="#a86a4a"/><stop offset="1" stop-color="#d3a07c"/>
-                  </linearGradient>
-                </defs>
-                <rect width="400" height="300" fill="url(#bg1)"/>
-                <g transform="translate(120 60)">
-                  <rect width="90" height="180" rx="14" fill="#FAF6EE"/>
-                  <rect x="8" y="14" width="74" height="10" rx="3" fill="#0d1e2a"/>
-                  <rect x="8" y="30" width="40" height="6" rx="2" fill="#cfd5dc"/>
-                  <rect x="8" y="44" width="74" height="40" rx="4" fill="#e6d3b8"/>
-                  <rect x="8" y="90" width="34" height="34" rx="4" fill="#c79b7a"/>
-                  <rect x="48" y="90" width="34" height="34" rx="4" fill="#5d4536"/>
-                  <rect x="8" y="130" width="74" height="6" rx="2" fill="#cfd5dc"/>
-                  <rect x="8" y="142" width="50" height="6" rx="2" fill="#cfd5dc"/>
-                </g>
-                <g transform="translate(220 70)">
-                  <rect width="90" height="180" rx="14" fill="#FAF6EE"/>
-                  <rect x="8" y="14" width="30" height="30" rx="15" fill="#BFE3C8"/>
-                  <rect x="44" y="22" width="38" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="44" y="32" width="28" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="8" y="56" width="74" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="8" y="68" width="60" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="8" y="82" width="74" height="36" rx="4" fill="#e9eef0"/>
-                  <rect x="8" y="126" width="74" height="22" rx="4" fill="#0d1e2a"/>
-                </g>
-              </svg>
+              <img class="mockup" src="assets/placeholder.png" alt="" />
               <span class="cta">Read case</span>
             </a>
           </article>
 
           <article class="work-card">
-            <div class="card-label">for Marley Spoon Group</div>
+            <div class="card-label">UX Research, Product Design</div>
             <h3 class="card-title">Onboarding the newly acquired customers and resulting in 40% churn drop YoY</h3>
             <p class="card-desc">Surfacing the right recipes at the right moment so subscribers stay engaged across the week.</p>
             <a href="#" class="media" aria-label="Open case study">
-              <svg class="mockup" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#0d2237"/><stop offset="1" stop-color="#3a5a8a"/>
-                  </linearGradient>
-                </defs>
-                <rect width="400" height="300" fill="url(#bg2)"/>
-                <g transform="translate(40 40)">
-                  <rect width="320" height="220" rx="8" fill="#FAF6EE"/>
-                  <rect width="320" height="24" rx="8" fill="#e9eef0"/>
-                  <circle cx="14" cy="12" r="3" fill="#cfd5dc"/>
-                  <circle cx="26" cy="12" r="3" fill="#cfd5dc"/>
-                  <circle cx="38" cy="12" r="3" fill="#cfd5dc"/>
-                  <rect x="16" y="40" width="80" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="16" y="52" width="50" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="16" y="68" width="92" height="60" rx="4" fill="#c79b7a"/>
-                  <rect x="114" y="68" width="92" height="60" rx="4" fill="#5d4536"/>
-                  <rect x="212" y="68" width="92" height="60" rx="4" fill="#1E4D35"/>
-                  <rect x="16" y="134" width="92" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="16" y="146" width="60" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="114" y="134" width="92" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="114" y="146" width="40" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="212" y="134" width="92" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="212" y="146" width="70" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="16" y="172" width="288" height="30" rx="4" fill="#BFE3C8"/>
-                </g>
-              </svg>
+              <img class="mockup" src="assets/placeholder.png" alt="" />
               <span class="cta">Read case</span>
             </a>
           </article>
 
           <article class="work-card">
-            <div class="card-label">for Marley Spoon Group</div>
+            <div class="card-label">UX Research, Product Design</div>
             <h3 class="card-title">Owning a seller experience for a global delivery platform across 11 markets</h3>
             <p class="card-desc">Reducing friction at the most critical step while keeping the brand voice warm and human.</p>
             <a href="#" class="media" aria-label="Open case study">
-              <svg class="mockup" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#1E4D35"/><stop offset="1" stop-color="#7ba88a"/>
-                  </linearGradient>
-                </defs>
-                <rect width="400" height="300" fill="url(#bg3)"/>
-                <g transform="translate(155 38)">
-                  <rect width="90" height="220" rx="16" fill="#FAF6EE"/>
-                  <rect x="30" y="6" width="30" height="4" rx="2" fill="#0d1e2a"/>
-                  <rect x="10" y="22" width="70" height="6" rx="2" fill="#0d1e2a"/>
-                  <rect x="10" y="34" width="50" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="10" y="50" width="70" height="30" rx="4" fill="#e9eef0"/>
-                  <rect x="14" y="58" width="40" height="4" rx="2" fill="#0d1e2a"/>
-                  <rect x="14" y="68" width="24" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="10" y="86" width="70" height="30" rx="4" fill="#e9eef0"/>
-                  <rect x="14" y="94" width="40" height="4" rx="2" fill="#0d1e2a"/>
-                  <rect x="14" y="104" width="24" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="10" y="122" width="70" height="30" rx="4" fill="#e9eef0"/>
-                  <rect x="14" y="130" width="40" height="4" rx="2" fill="#0d1e2a"/>
-                  <rect x="14" y="140" width="24" height="4" rx="2" fill="#cfd5dc"/>
-                  <rect x="10" y="168" width="70" height="22" rx="4" fill="#0d1e2a"/>
-                  <rect x="10" y="196" width="70" height="4" rx="2" fill="#cfd5dc"/>
-                </g>
-              </svg>
+              <img class="mockup" src="assets/placeholder.png" alt="" />
               <span class="cta">Read case</span>
             </a>
           </article>
@@ -918,17 +850,7 @@
             <div class="card-label">capturing my point of view</div>
             <h3 class="card-title">Personal archive of not-so-personal photos</h3>
             <a href="https://instagram.com/fotosdomatteus" class="media" aria-label="Open photo archive" target="_blank" rel="noopener">
-              <svg class="mockup" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <rect width="600" height="280" fill="#1a1a1a"/>
-                <g transform="translate(30 30)">
-                  <rect x="0" y="0" width="170" height="100" fill="#5d4536"/>
-                  <rect x="185" y="0" width="170" height="100" fill="#a86a4a"/>
-                  <rect x="370" y="0" width="170" height="100" fill="#3a5a8a"/>
-                  <rect x="0" y="115" width="170" height="100" fill="#1E4D35"/>
-                  <rect x="185" y="115" width="170" height="100" fill="#c79b7a"/>
-                  <rect x="370" y="115" width="170" height="100" fill="#0d2237"/>
-                </g>
-              </svg>
+              <img class="mockup" src="assets/placeholder.png" alt="" />
               <span class="cta">View archive</span>
             </a>
           </article>
@@ -937,36 +859,7 @@
             <div class="card-label">personal projects</div>
             <h3 class="card-title">Redesigning old studies and much more</h3>
             <a href="#" class="media" aria-label="Open studies">
-              <svg class="mockup" viewBox="0 0 600 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-                <defs>
-                  <linearGradient id="bg6" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#e6d3b8"/><stop offset="1" stop-color="#c79b7a"/>
-                  </linearGradient>
-                </defs>
-                <rect width="600" height="280" fill="url(#bg6)"/>
-                <g transform="translate(60 36)">
-                  <rect width="220" height="208" fill="#FAF6EE"/>
-                  <rect x="20" y="24" width="180" height="10" fill="#0d1e2a"/>
-                  <rect x="20" y="42" width="120" height="6" fill="#cfd5dc"/>
-                  <rect x="20" y="58" width="180" height="100" fill="#e9eef0"/>
-                  <circle cx="110" cy="108" r="34" fill="#1E4D35"/>
-                  <rect x="20" y="170" width="160" height="6" fill="#cfd5dc"/>
-                  <rect x="20" y="184" width="110" height="6" fill="#cfd5dc"/>
-                </g>
-                <g transform="translate(320 36)">
-                  <rect width="220" height="208" fill="#FAF6EE"/>
-                  <rect x="20" y="24" width="60" height="60" fill="#a86a4a"/>
-                  <rect x="90" y="24" width="110" height="8" fill="#0d1e2a"/>
-                  <rect x="90" y="40" width="90" height="6" fill="#cfd5dc"/>
-                  <rect x="90" y="54" width="110" height="6" fill="#cfd5dc"/>
-                  <rect x="90" y="68" width="70" height="6" fill="#cfd5dc"/>
-                  <rect x="20" y="100" width="180" height="4" fill="#0d1e2a"/>
-                  <rect x="20" y="118" width="180" height="6" fill="#cfd5dc"/>
-                  <rect x="20" y="132" width="180" height="6" fill="#cfd5dc"/>
-                  <rect x="20" y="146" width="140" height="6" fill="#cfd5dc"/>
-                  <rect x="20" y="172" width="180" height="24" fill="#1E4D35"/>
-                </g>
-              </svg>
+              <img class="mockup" src="assets/placeholder.png" alt="" />
               <span class="cta">View studies</span>
             </a>
           </article>
