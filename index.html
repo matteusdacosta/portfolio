@@ -181,24 +181,30 @@
       line-height: 1.55;
     }
 
-    /* Card hover */
+    /* Card hover — one backdrop layer with fixed shape, fading in/out.
+       (bg + box-shadow + radius used to animate independently and
+       collapsed out of sync on hover-out, creating a broken shape) */
     .work-card,
-    .hobby-card,
-    .case-card {
+    .hobby-card {
       position: relative;
-      border-radius: 0;
-      background: transparent;
-      box-shadow: 0 0 0 0 var(--color-surface-hover);
-      transition: box-shadow .25s ease, border-radius .25s ease, background-color .25s ease;
+      isolation: isolate;
     }
 
-    .work-card:hover,
-    .hobby-card:hover,
-    .case-card:hover {
+    .work-card::before,
+    .hobby-card::before {
+      content: "";
+      position: absolute;
+      inset: -16px;
       background: var(--color-surface-hover);
       border-radius: 14px;
-      box-shadow: 0 0 0 16px var(--color-surface-hover);
+      opacity: 0;
+      transition: opacity .3s ease;
+      pointer-events: none;
+      z-index: -1;
     }
+
+    .work-card:hover::before,
+    .hobby-card:hover::before { opacity: 1; }
 
     /* Image surface */
     .media {
@@ -210,7 +216,7 @@
       cursor: pointer;
       isolation: isolate;
       border-radius: 0;
-      transition: border-radius .25s ease;
+      transition: border-radius .3s ease;
     }
 
     .media::after {
@@ -220,16 +226,14 @@
       background: rgba(0, 0, 0, 0.32);
       opacity: 0;
       pointer-events: none;
-      transition: opacity .25s ease;
+      transition: opacity .3s ease;
       z-index: 1;
     }
     .work-card:hover .media::after,
-    .hobby-card:hover .media::after,
-    .case-card:hover .media::after { opacity: 1; }
+    .hobby-card:hover .media::after { opacity: 1; }
 
     .work-card:hover .media,
-    .hobby-card:hover .media,
-    .case-card:hover .media { border-radius: 14px; }
+    .hobby-card:hover .media { border-radius: 14px; }
 
     .media .mockup {
       position: absolute;
@@ -242,6 +246,9 @@
       transform: scale(1);
       transition: transform .5s cubic-bezier(.2,.7,.2,1);
     }
+
+    .work-card:hover .mockup,
+    .hobby-card:hover .mockup { transform: scale(1.05); }
 
     .media .cta {
       position: absolute;
@@ -263,8 +270,7 @@
     }
 
     .work-card:hover .cta,
-    .hobby-card:hover .cta,
-    .case-card:hover .cta {
+    .hobby-card:hover .cta {
       opacity: 1;
       transform: translate(-50%, -50%);
     }
@@ -471,6 +477,9 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .logos-track { animation: none; }
+      .navbar, .hero-line-1, .hero-line-2, .hero-body { animation: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .media .mockup, .media, .media::after { transition: none; }
     }
 
 
@@ -722,6 +731,36 @@
       width: 100%;
       height: auto;
       display: block;
+    }
+
+    /* ─── MOTION ─────────────────────────────────────
+       Entrance + scroll-reveal. Transform/opacity only,
+       so everything stays compositor-friendly.          */
+
+    @keyframes rise-in {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .navbar      { animation: fade-in .8s ease both; }
+    .hero-line-1 { animation: rise-in .7s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-line-2 { animation: rise-in .7s cubic-bezier(.2,.7,.2,1) .12s both; }
+    .hero-body   { animation: rise-in .7s cubic-bezier(.2,.7,.2,1) .24s both; }
+
+    /* .reveal is applied by JS (no-JS users see everything instantly);
+       .is-visible is added by an IntersectionObserver on first entry */
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
     }
 
     /* ─── Desktop grid (≥ 1280px) ───────────────────── */
@@ -1106,6 +1145,41 @@
       <img src="assets/logotype-full.svg" alt="" />
     </div>
   </section>
+
+  <script>
+    (function () {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      // grouped elements get a stagger; standalone ones reveal on their own
+      var groups  = [".grid-3 .work-card", ".grid-2 .hobby-card", ".photo-grid .tile", ".jobs .job"];
+      var singles = [".section-label", ".hobbies-intro", ".about-headline", ".about-location",
+                     ".about-body", ".contributed", ".exp-header"];
+      var targets = [];
+
+      groups.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el, i) {
+          el.style.transitionDelay = (i * 80) + "ms";
+          targets.push(el);
+        });
+      });
+      singles.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el) { targets.push(el); });
+      });
+
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -10% 0px", threshold: 0.1 });
+
+      targets.forEach(function (el) {
+        el.classList.add("reveal");
+        io.observe(el);
+      });
+    })();
+  </script>
 
 </body>
 </html>
