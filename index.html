@@ -250,6 +250,22 @@
     .work-card:hover .mockup,
     .hobby-card:hover .mockup { transform: scale(1.05); }
 
+    /* Auto-advancing slideshow inside .media (JS moves the track) */
+    .media .slides {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      height: 100%;
+      transition: transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+    .media .slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
     .media .cta {
       position: absolute;
       left: 50%;
@@ -479,7 +495,7 @@
       .logos-track { animation: none; }
       .navbar, .hero-line-1, .hero-line-2, .hero-body { animation: none; }
       .reveal { opacity: 1; transform: none; transition: none; }
-      .media .mockup, .media, .media::after { transition: none; }
+      .media .mockup, .media, .media::after, .media .slides { transition: none; }
     }
 
 
@@ -546,7 +562,7 @@
       bottom: -80px;
       width: 2px;
       border-radius: 9999px;
-      background: var(--color-neutral-300);
+      background: var(--color-tech-green);
       pointer-events: none;
     }
 
@@ -564,12 +580,15 @@
       z-index: 1;
     }
 
-    /* current role — larger marker */
+    /* current role — larger marker, white fill + tech-green ring */
     .job:first-child::before {
       left: -28px;
       top: 5.5px;
       width: 16px;
       height: 16px;
+      box-sizing: border-box;
+      background: var(--color-white);
+      border: 4px solid var(--color-tech-green);
     }
 
     .job-title {
@@ -852,7 +871,7 @@
             <h3 class="card-title">Unlocking Australia’s complex geography: from blocked postcodes to 20% CVR</h3>
             <p class="card-desc">A redesigned signup flow that helps first-time customers cook with confidence from day one.</p>
             <a href="#" class="media" aria-label="Open case study">
-              <img class="mockup" src="assets/placeholder.png" alt="" />
+              <img class="mockup" src="assets/suburbs-thumb.jpg" alt="" />
               <span class="cta">Read case</span>
             </a>
           </article>
@@ -862,7 +881,11 @@
             <h3 class="card-title">Onboarding the newly acquired customers and resulting in 40% churn drop YoY</h3>
             <p class="card-desc">Surfacing the right recipes at the right moment so subscribers stay engaged across the week.</p>
             <a href="#" class="media" aria-label="Open case study">
-              <img class="mockup" src="assets/placeholder.png" alt="" />
+              <div class="slides">
+                <img class="slide" src="assets/onboarding-01.jpg" alt="" />
+                <img class="slide" src="assets/onboarding-02.jpg" alt="" />
+                <img class="slide" src="assets/onboarding-03.jpg" alt="" />
+              </div>
               <span class="cta">Read case</span>
             </a>
           </article>
@@ -889,7 +912,7 @@
             <div class="card-label">capturing my point of view</div>
             <h3 class="card-title">Personal archive of not-so-personal photos</h3>
             <a href="https://instagram.com/fotosdomatteus" class="media" aria-label="Open photo archive" target="_blank" rel="noopener">
-              <img class="mockup" src="assets/placeholder.png" alt="" />
+              <img class="mockup" src="assets/photosofmatteus.jpg" alt="" />
               <span class="cta">View archive</span>
             </a>
           </article>
@@ -898,7 +921,7 @@
             <div class="card-label">personal projects</div>
             <h3 class="card-title">Redesigning old studies and much more</h3>
             <a href="#" class="media" aria-label="Open studies">
-              <img class="mockup" src="assets/placeholder.png" alt="" />
+              <img class="mockup" src="assets/dribbble.png" alt="" />
               <span class="cta">View studies</span>
             </a>
           </article>
@@ -1177,6 +1200,24 @@
       targets.forEach(function (el) {
         el.classList.add("reveal");
         io.observe(el);
+      });
+    })();
+
+    (function () {
+      // auto-advancing slideshows: swipe every 7s, pause while hovered
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      document.querySelectorAll(".media .slides").forEach(function (track) {
+        var count = track.children.length;
+        if (count < 2) return;
+        var index = 0;
+        function advance() {
+          index = (index + 1) % count;
+          track.style.transform = "translateX(-" + (index * 100) + "%)";
+        }
+        var timer = setInterval(advance, 7000);
+        var media = track.closest(".media");
+        media.addEventListener("mouseenter", function () { clearInterval(timer); });
+        media.addEventListener("mouseleave", function () { timer = setInterval(advance, 7000); });
       });
     })();
   </script>
