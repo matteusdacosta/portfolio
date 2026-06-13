@@ -77,7 +77,9 @@
               backdrop-filter: blur(14px) saturate(1.2);
     }
     /* tuck up and out with a quick wind-up once Experience is reached;
-       drops back in with a soft overshoot on the way up the page */
+       drops back in with a soft overshoot on the way up the page.
+       TODO(polish): smooth this transition out — the wind-up/snap reads well
+       but is a touch abrupt; revisit timing + curve (maybe a subtle fade). */
     .navbar.tuck {
       transform: translateY(-130%);
       transition: transform .42s cubic-bezier(.36, 0, .66, -.56);
