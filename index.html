@@ -61,8 +61,8 @@
       left: 0;
       right: 0;
       z-index: 100;
-      padding-block: 28px;
-      transition: background-color .35s ease, backdrop-filter .35s ease, box-shadow .35s ease;
+      padding-block: 14px;
+      transition: background-color .35s ease, backdrop-filter .35s ease;
     }
     .navbar-inner {
       display: flex;
@@ -74,7 +74,6 @@
       background: rgba(255, 255, 255, 0.24);
       -webkit-backdrop-filter: blur(14px) saturate(1.2);
               backdrop-filter: blur(14px) saturate(1.2);
-      box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
     }
 
     .nav-logo {
@@ -85,10 +84,11 @@
       height: 56px;
       color: var(--color-text);
       user-select: none;
-      transform-origin: center center;
-      will-change: transform, opacity;
+      transition: width .35s ease, height .35s ease;
     }
-    .nav-logo svg { width: 56px; height: 56px; display: block; }
+    .nav-logo svg { width: 100%; height: 100%; display: block; }
+    /* compact logo once scrolled */
+    .navbar.scrolled .nav-logo { width: 24px; height: 24px; }
 
     .nav-links {
       display: flex;
@@ -512,7 +512,7 @@
     @media (prefers-reduced-motion: reduce) {
       .logos-track { animation: none; }
       .navbar, .hero-line-1, .hero-line-2, .hero-body { animation: none; }
-      .navbar { transition: none; }
+      .navbar, .nav-logo { transition: none; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .media .mockup, .media, .media::after, .media .slides { transition: none; }
     }
@@ -677,8 +677,6 @@
       width: 56px;
       height: 56px;
       color: var(--color-white);
-      transform-origin: center center;
-      will-change: transform;
     }
     .footer-logo svg { width: 56px; height: 56px; display: block; }
 
@@ -1239,50 +1237,32 @@
     })();
 
     (function () {
-      // Sticky header: translucent bg once scrolled, plus a logo hand-off.
-      // The nav logo and the footer logo share the same left alignment, so
-      // near the bottom the fixed nav logo glides down onto the footer logo,
-      // squashes on contact, and fades into it — ending at the footer mark.
-      var navbar     = document.querySelector(".navbar");
-      var navLogo    = document.querySelector(".nav-logo");
-      var footerLogo = document.querySelector(".footer-logo");
-      if (!navbar || !navLogo || !footerLogo) return;
+      // Sticky header: frosted bg once scrolled; pinned to the top until the
+      // end of the Experience section, then it scrolls away with the page.
+      var navbar = document.querySelector(".navbar");
+      var exp    = document.getElementById("experience");
+      if (!navbar) return;
 
-      var allowMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var DOCK = 280;                 // px of footer travel over which docking happens
-      var navHome = 0, restCenter = 0, ticking = false;
-
+      var expBottom = Infinity, ticking = false;
       function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
 
       function measure() {
-        navLogo.style.transform = "";
-        var n = navLogo.getBoundingClientRect();
-        navHome = n.top + n.height / 2;                       // fixed: scroll-independent
-        var f = footerLogo.getBoundingClientRect();
-        var footDocCenter = f.top + window.scrollY + f.height / 2;
-        var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-        restCenter = footDocCenter - maxScroll;               // footer center at full scroll
+        if (exp) expBottom = exp.offsetTop + exp.offsetHeight;
       }
 
       function update() {
         ticking = false;
         navbar.classList.toggle("scrolled", window.scrollY > 8);
-        if (!allowMotion) return;
 
-        var f = footerLogo.getBoundingClientRect();
-        var footCenter = f.top + f.height / 2;
-        var progress = clamp((restCenter + DOCK - footCenter) / DOCK, 0, 1);
-
-        var ty = progress * (footCenter - navHome);           // nav logo glides toward footer
-
-        // squash: one impact that builds then releases as the marks meet
-        var p  = Math.sin(clamp((progress - 0.7) / 0.3, 0, 1) * Math.PI);
-        var sx = (1 + 0.14 * p).toFixed(4);
-        var sy = (1 - 0.18 * p).toFixed(4);
-
-        navLogo.style.transform    = "translateY(" + ty.toFixed(2) + "px) scale(" + sx + "," + sy + ")";
-        footerLogo.style.transform = "scale(" + sx + "," + sy + ")";
-        navLogo.style.opacity      = 1 - clamp((progress - 0.8) / 0.2, 0, 1);
+        // pinned through the content, then retract as the footer scrolls in.
+        // The section after Experience is shorter than the viewport, so rather
+        // than parking (which would overlap the footer) the bar slides up and
+        // out over a short window once Experience has been read.
+        var slideStart = expBottom - window.innerHeight;
+        var t = slideStart > 0 ? clamp((window.scrollY - slideStart) / 200, 0, 1) : 0;
+        navbar.style.transform = t > 0
+          ? "translateY(" + (-(t * navbar.offsetHeight)).toFixed(2) + "px)"
+          : "";
       }
 
       function onScroll() {
