@@ -56,14 +56,25 @@
     }
 
     .navbar {
-      position: absolute;
-      top: 40px;
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
-      padding: 0 60px;
+      z-index: 100;
+      padding-block: 28px;
+      transition: background-color .35s ease, backdrop-filter .35s ease, box-shadow .35s ease;
+    }
+    .navbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    /* translucent frosted bar once the page is scrolled */
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(14px) saturate(1.2);
+              backdrop-filter: blur(14px) saturate(1.2);
+      box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
     }
 
     .nav-logo {
@@ -74,6 +85,8 @@
       height: 56px;
       color: var(--color-text);
       user-select: none;
+      transform-origin: center center;
+      will-change: transform, opacity;
     }
     .nav-logo svg { width: 56px; height: 56px; display: block; }
 
@@ -499,6 +512,7 @@
     @media (prefers-reduced-motion: reduce) {
       .logos-track { animation: none; }
       .navbar, .hero-line-1, .hero-line-2, .hero-body { animation: none; }
+      .navbar { transition: none; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .media .mockup, .media, .media::after, .media .slides { transition: none; }
     }
@@ -663,6 +677,8 @@
       width: 56px;
       height: 56px;
       color: var(--color-white);
+      transform-origin: center center;
+      will-change: transform;
     }
     .footer-logo svg { width: 56px; height: 56px; display: block; }
 
@@ -799,12 +815,7 @@
         position: relative;
         height: 100%;
       }
-      /* Navbar: absolutely positioned, so layout padding doesn't apply —
-         give it explicit insets to match the 56px layout margin */
-      .navbar {
-        padding-inline: var(--layout-margin);
-      }
-      /* Hero text: same reason — explicit insets match the layout margin */
+      /* Hero text: explicit insets match the layout margin */
       .hero-text {
         left: var(--layout-margin);
         right: var(--layout-margin);
@@ -819,7 +830,6 @@
        56px insets added for 1280–1439px must be reset.    */
     @media (min-width: 1440px) {
       .layout    { padding-inline: 0; }
-      .navbar    { padding-inline: 0; }
       .hero-text { left: 0; right: 0; }
     }
 
@@ -830,9 +840,8 @@
   <!-- ════════════════════════════════════════
        HERO
        ════════════════════════════════════════ -->
-  <section class="hero" id="home">
-    <div class="layout">
-    <nav class="navbar" aria-label="Primary">
+  <nav class="navbar" aria-label="Primary">
+    <div class="layout navbar-inner">
       <a href="#home" class="nav-logo" aria-label="Home">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M33.6369 38.7179C34.2649 36.5498 35.7499 32.5383 39.2391 25.3237C39.6588 24.4565 40.0797 23.5994 40.4956 22.7631L51.3333 22.5618L51.2181 16.3411L43.7113 16.4804C45.0178 13.9932 45.9129 12.3638 45.93 12.3322L40.4791 9.33353C40.4544 9.37848 38.777 12.4322 36.6336 16.612L22.5086 16.8741C23.9266 14.166 24.9154 12.3657 24.9337 12.3328L19.4822 9.33353C19.4569 9.37974 17.6744 12.6253 15.4354 17.0052L4.66667 17.2052L4.78188 23.4259L12.3185 23.286C6.00738 36.4409 5.63897 40.3251 6.11689 42.3837C6.55177 44.2581 7.76841 45.5805 9.45538 46.0116C9.84658 46.1116 10.2473 46.1629 10.6606 46.1629C12.8635 46.1629 15.4373 44.717 18.9651 41.5519C21.4351 39.3357 23.4784 37.0524 23.5645 36.9568L18.9227 32.8137C16.8704 35.1134 14.4315 37.374 12.6407 38.7172C13.2686 36.5491 14.7537 32.5377 18.2428 25.3231C18.5967 24.5907 18.9518 23.8665 19.3044 23.1556L33.504 22.8923C33.4812 22.9391 33.4584 22.986 33.4363 23.0328C27.0081 36.3921 26.6327 40.3112 27.1138 42.3831C27.5487 44.2575 28.7653 45.5799 30.4523 46.0109C30.8435 46.111 31.2442 46.1622 31.6575 46.1622C33.8604 46.1622 36.4342 44.7164 39.962 41.5513C42.432 39.3351 44.4753 37.0518 44.5614 36.9562L39.9196 32.813C37.8673 35.1128 35.4284 37.3733 33.6376 38.7166L33.6369 38.7179Z" fill="currentColor"/>
@@ -844,8 +853,11 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-    </nav>
+    </div>
+  </nav>
 
+  <section class="hero" id="home">
+    <div class="layout">
     <div class="hero-text">
       <div class="hero-line-1">
         Call me <span class="name">Matteus</span><span class="pron"> [ma'tews].</span>
@@ -1224,6 +1236,64 @@
         media.addEventListener("mouseenter", function () { clearInterval(timer); });
         media.addEventListener("mouseleave", function () { timer = setInterval(advance, 7000); });
       });
+    })();
+
+    (function () {
+      // Sticky header: translucent bg once scrolled, plus a logo hand-off.
+      // The nav logo and the footer logo share the same left alignment, so
+      // near the bottom the fixed nav logo glides down onto the footer logo,
+      // squashes on contact, and fades into it — ending at the footer mark.
+      var navbar     = document.querySelector(".navbar");
+      var navLogo    = document.querySelector(".nav-logo");
+      var footerLogo = document.querySelector(".footer-logo");
+      if (!navbar || !navLogo || !footerLogo) return;
+
+      var allowMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var DOCK = 280;                 // px of footer travel over which docking happens
+      var navHome = 0, restCenter = 0, ticking = false;
+
+      function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+      function measure() {
+        navLogo.style.transform = "";
+        var n = navLogo.getBoundingClientRect();
+        navHome = n.top + n.height / 2;                       // fixed: scroll-independent
+        var f = footerLogo.getBoundingClientRect();
+        var footDocCenter = f.top + window.scrollY + f.height / 2;
+        var maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+        restCenter = footDocCenter - maxScroll;               // footer center at full scroll
+      }
+
+      function update() {
+        ticking = false;
+        navbar.classList.toggle("scrolled", window.scrollY > 8);
+        if (!allowMotion) return;
+
+        var f = footerLogo.getBoundingClientRect();
+        var footCenter = f.top + f.height / 2;
+        var progress = clamp((restCenter + DOCK - footCenter) / DOCK, 0, 1);
+
+        var ty = progress * (footCenter - navHome);           // nav logo glides toward footer
+
+        // squash: one impact that builds then releases as the marks meet
+        var p  = Math.sin(clamp((progress - 0.7) / 0.3, 0, 1) * Math.PI);
+        var sx = (1 + 0.14 * p).toFixed(4);
+        var sy = (1 - 0.18 * p).toFixed(4);
+
+        navLogo.style.transform    = "translateY(" + ty.toFixed(2) + "px) scale(" + sx + "," + sy + ")";
+        footerLogo.style.transform = "scale(" + sx + "," + sy + ")";
+        navLogo.style.opacity      = 1 - clamp((progress - 0.8) / 0.2, 0, 1);
+      }
+
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+
+      measure();
+      update();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", function () { measure(); update(); });
+      window.addEventListener("load", function () { measure(); update(); });
     })();
   </script>
 
