@@ -62,7 +62,8 @@
       right: 0;
       z-index: 100;
       padding-block: 14px;
-      transition: background-color .35s ease, backdrop-filter .35s ease;
+      transition: background-color .35s ease, backdrop-filter .35s ease,
+                  transform .5s cubic-bezier(.34, 1.56, .64, 1);
     }
     .navbar-inner {
       display: flex;
@@ -74,6 +75,12 @@
       background: rgba(255, 255, 255, 0.24);
       -webkit-backdrop-filter: blur(14px) saturate(1.2);
               backdrop-filter: blur(14px) saturate(1.2);
+    }
+    /* tuck up and out with a quick wind-up once Experience is reached;
+       drops back in with a soft overshoot on the way up the page */
+    .navbar.tuck {
+      transform: translateY(-130%);
+      transition: transform .42s cubic-bezier(.36, 0, .66, -.56);
     }
 
     .nav-logo {
@@ -1240,28 +1247,23 @@
       // Sticky header: frosted bg once scrolled; pinned to the top until the
       // end of the Experience section, then it scrolls away with the page.
       var navbar = document.querySelector(".navbar");
-      var about  = document.getElementById("about");
+      var exp    = document.getElementById("experience");
       if (!navbar) return;
 
-      var aboutBottom = Infinity, ticking = false;
-      function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+      var tuckAt = Infinity, ticking = false;
 
       function measure() {
-        if (about) aboutBottom = about.offsetTop + about.offsetHeight;
+        if (exp) tuckAt = exp.offsetTop + exp.offsetHeight - window.innerHeight;
       }
 
       function update() {
         ticking = false;
         navbar.classList.toggle("scrolled", window.scrollY > 8);
 
-        // pinned through the top of the page, then retract as the About section
-        // ends and Experience comes into view — keeps the menu well clear of
-        // the Experience/footer area.
-        var slideStart = aboutBottom - window.innerHeight;
-        var t = slideStart > 0 ? clamp((window.scrollY - slideStart) / 200, 0, 1) : 0;
-        navbar.style.transform = t > 0
-          ? "translateY(" + (-(t * navbar.offsetHeight)).toFixed(2) + "px)"
-          : "";
+        // tuck the menu up and away once Experience fills the view; small
+        // hysteresis so it doesn't flicker right at the threshold
+        if (window.scrollY > tuckAt) navbar.classList.add("tuck");
+        else if (window.scrollY < tuckAt - 80) navbar.classList.remove("tuck");
       }
 
       function onScroll() {
