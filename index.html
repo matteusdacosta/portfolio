@@ -1240,25 +1240,24 @@
       // Sticky header: frosted bg once scrolled; pinned to the top until the
       // end of the Experience section, then it scrolls away with the page.
       var navbar = document.querySelector(".navbar");
-      var exp    = document.getElementById("experience");
+      var about  = document.getElementById("about");
       if (!navbar) return;
 
-      var expBottom = Infinity, ticking = false;
+      var aboutBottom = Infinity, ticking = false;
       function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
 
       function measure() {
-        if (exp) expBottom = exp.offsetTop + exp.offsetHeight;
+        if (about) aboutBottom = about.offsetTop + about.offsetHeight;
       }
 
       function update() {
         ticking = false;
         navbar.classList.toggle("scrolled", window.scrollY > 8);
 
-        // pinned through the content, then retract as the footer scrolls in.
-        // The section after Experience is shorter than the viewport, so rather
-        // than parking (which would overlap the footer) the bar slides up and
-        // out over a short window once Experience has been read.
-        var slideStart = expBottom - window.innerHeight;
+        // pinned through the top of the page, then retract as the About section
+        // ends and Experience comes into view — keeps the menu well clear of
+        // the Experience/footer area.
+        var slideStart = aboutBottom - window.innerHeight;
         var t = slideStart > 0 ? clamp((window.scrollY - slideStart) / 200, 0, 1) : 0;
         navbar.style.transform = t > 0
           ? "translateY(" + (-(t * navbar.offsetHeight)).toFixed(2) + "px)"
