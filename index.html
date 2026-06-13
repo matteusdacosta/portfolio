@@ -56,14 +56,33 @@
     }
 
     .navbar {
-      position: absolute;
-      top: 40px;
+      position: fixed;
+      top: 0;
       left: 0;
       right: 0;
-      padding: 0 60px;
+      z-index: 100;
+      padding-block: 14px;
+      transition: background-color .35s ease, backdrop-filter .35s ease,
+                  transform .5s cubic-bezier(.34, 1.56, .64, 1);
+    }
+    .navbar-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
+    /* translucent frosted bar once the page is scrolled */
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.24);
+      -webkit-backdrop-filter: blur(14px) saturate(1.2);
+              backdrop-filter: blur(14px) saturate(1.2);
+    }
+    /* tuck up and out with a quick wind-up once Experience is reached;
+       drops back in with a soft overshoot on the way up the page.
+       TODO(polish): smooth this transition out — the wind-up/snap reads well
+       but is a touch abrupt; revisit timing + curve (maybe a subtle fade). */
+    .navbar.tuck {
+      transform: translateY(-130%);
+      transition: transform .42s cubic-bezier(.36, 0, .66, -.56);
     }
 
     .nav-logo {
@@ -74,8 +93,11 @@
       height: 56px;
       color: var(--color-text);
       user-select: none;
+      transition: width .35s ease, height .35s ease;
     }
-    .nav-logo svg { width: 56px; height: 56px; display: block; }
+    .nav-logo svg { width: 100%; height: 100%; display: block; }
+    /* compact logo once scrolled */
+    .navbar.scrolled .nav-logo { width: 24px; height: 24px; }
 
     .nav-links {
       display: flex;
@@ -499,6 +521,7 @@
     @media (prefers-reduced-motion: reduce) {
       .logos-track { animation: none; }
       .navbar, .hero-line-1, .hero-line-2, .hero-body { animation: none; }
+      .navbar, .nav-logo { transition: none; }
       .reveal { opacity: 1; transform: none; transition: none; }
       .media .mockup, .media, .media::after, .media .slides { transition: none; }
     }
@@ -799,12 +822,7 @@
         position: relative;
         height: 100%;
       }
-      /* Navbar: absolutely positioned, so layout padding doesn't apply —
-         give it explicit insets to match the 56px layout margin */
-      .navbar {
-        padding-inline: var(--layout-margin);
-      }
-      /* Hero text: same reason — explicit insets match the layout margin */
+      /* Hero text: explicit insets match the layout margin */
       .hero-text {
         left: var(--layout-margin);
         right: var(--layout-margin);
@@ -819,7 +837,6 @@
        56px insets added for 1280–1439px must be reset.    */
     @media (min-width: 1440px) {
       .layout    { padding-inline: 0; }
-      .navbar    { padding-inline: 0; }
       .hero-text { left: 0; right: 0; }
     }
 
@@ -830,9 +847,8 @@
   <!-- ════════════════════════════════════════
        HERO
        ════════════════════════════════════════ -->
-  <section class="hero" id="home">
-    <div class="layout">
-    <nav class="navbar" aria-label="Primary">
+  <nav class="navbar" aria-label="Primary">
+    <div class="layout navbar-inner">
       <a href="#home" class="nav-logo" aria-label="Home">
         <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M33.6369 38.7179C34.2649 36.5498 35.7499 32.5383 39.2391 25.3237C39.6588 24.4565 40.0797 23.5994 40.4956 22.7631L51.3333 22.5618L51.2181 16.3411L43.7113 16.4804C45.0178 13.9932 45.9129 12.3638 45.93 12.3322L40.4791 9.33353C40.4544 9.37848 38.777 12.4322 36.6336 16.612L22.5086 16.8741C23.9266 14.166 24.9154 12.3657 24.9337 12.3328L19.4822 9.33353C19.4569 9.37974 17.6744 12.6253 15.4354 17.0052L4.66667 17.2052L4.78188 23.4259L12.3185 23.286C6.00738 36.4409 5.63897 40.3251 6.11689 42.3837C6.55177 44.2581 7.76841 45.5805 9.45538 46.0116C9.84658 46.1116 10.2473 46.1629 10.6606 46.1629C12.8635 46.1629 15.4373 44.717 18.9651 41.5519C21.4351 39.3357 23.4784 37.0524 23.5645 36.9568L18.9227 32.8137C16.8704 35.1134 14.4315 37.374 12.6407 38.7172C13.2686 36.5491 14.7537 32.5377 18.2428 25.3231C18.5967 24.5907 18.9518 23.8665 19.3044 23.1556L33.504 22.8923C33.4812 22.9391 33.4584 22.986 33.4363 23.0328C27.0081 36.3921 26.6327 40.3112 27.1138 42.3831C27.5487 44.2575 28.7653 45.5799 30.4523 46.0109C30.8435 46.111 31.2442 46.1622 31.6575 46.1622C33.8604 46.1622 36.4342 44.7164 39.962 41.5513C42.432 39.3351 44.4753 37.0518 44.5614 36.9562L39.9196 32.813C37.8673 35.1128 35.4284 37.3733 33.6376 38.7166L33.6369 38.7179Z" fill="currentColor"/>
@@ -844,8 +860,11 @@
         <li><a href="#experience">Experience</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-    </nav>
+    </div>
+  </nav>
 
+  <section class="hero" id="home">
+    <div class="layout">
     <div class="hero-text">
       <div class="hero-line-1">
         Call me <span class="name">Matteus</span><span class="pron"> [ma'tews].</span>
@@ -1224,6 +1243,40 @@
         media.addEventListener("mouseenter", function () { clearInterval(timer); });
         media.addEventListener("mouseleave", function () { timer = setInterval(advance, 7000); });
       });
+    })();
+
+    (function () {
+      // Sticky header: frosted bg once scrolled; pinned to the top until the
+      // end of the Experience section, then it scrolls away with the page.
+      var navbar = document.querySelector(".navbar");
+      var exp    = document.getElementById("experience");
+      if (!navbar) return;
+
+      var tuckAt = Infinity, ticking = false;
+
+      function measure() {
+        if (exp) tuckAt = exp.offsetTop + exp.offsetHeight - window.innerHeight;
+      }
+
+      function update() {
+        ticking = false;
+        navbar.classList.toggle("scrolled", window.scrollY > 8);
+
+        // tuck the menu up and away once Experience fills the view; small
+        // hysteresis so it doesn't flicker right at the threshold
+        if (window.scrollY > tuckAt) navbar.classList.add("tuck");
+        else if (window.scrollY < tuckAt - 80) navbar.classList.remove("tuck");
+      }
+
+      function onScroll() {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+      }
+
+      measure();
+      update();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", function () { measure(); update(); });
+      window.addEventListener("load", function () { measure(); update(); });
     })();
   </script>
 
