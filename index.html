@@ -840,9 +840,101 @@
       .hero-text { left: 0; right: 0; }
     }
 
+    /* ─── Mobile viewport gate (< 1024px) ────────────────
+       The responsive layout is still in progress, so on any
+       viewport narrower than 1024px we cover the page with a
+       full-screen "come back on desktop" card. Hidden from
+       1024px up, where the real site renders. */
+    .mobile-gate { display: none; }
+
+    @media (max-width: 1023px) {
+      .mobile-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        height: 100dvh;
+        background: var(--color-tech-green);
+        overflow: hidden;
+      }
+
+      .mobile-gate__photo {
+        flex: 1 1 auto;
+        min-height: 0;
+        width: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: 50% 22%;
+      }
+
+      .mobile-gate__card {
+        position: relative;
+        z-index: 1;
+        margin-top: -34px;
+        padding: 40px 32px 34px;
+        background: var(--color-tech-green);
+        border-radius: 28px 28px 0 0;
+        text-align: center;
+      }
+
+      .mobile-gate__title {
+        font-family: "Work Sans", system-ui, sans-serif;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        color: var(--color-bg);
+        margin-bottom: 14px;
+      }
+
+      .mobile-gate__body {
+        font-family: "Work Sans", system-ui, sans-serif;
+        font-size: 15px;
+        line-height: 1.6;
+        color: var(--color-bg);
+        opacity: 0.82;
+        max-width: 32ch;
+        margin-inline: auto;
+      }
+
+      .mobile-gate__footer {
+        flex: 0 0 auto;
+        padding: 18px 24px calc(18px + env(safe-area-inset-bottom));
+        background: var(--color-harmony-green);
+        text-align: center;
+      }
+
+      .mobile-gate__footer-text {
+        font-family: "Work Sans", system-ui, sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        color: var(--color-tech-green);
+      }
+
+      /* hide the half-built desktop layout entirely so it can't force
+         horizontal overflow behind the gate — the gate is all that shows */
+      body > *:not(.mobile-gate) { display: none; }
+      body { overflow: hidden; }
+    }
+
   </style>
 </head>
 <body>
+
+  <!-- ════════════════════════════════════════
+       MOBILE GATE — covers the viewport < 1024px
+       while the responsive layout is in progress
+       ════════════════════════════════════════ -->
+  <aside class="mobile-gate" role="region" aria-label="Mobile notice">
+    <img class="mobile-gate__photo" src="assets/about-1.png" alt="Portrait of Matteus" />
+    <div class="mobile-gate__card">
+      <h1 class="mobile-gate__title">hey, Matteus here</h1>
+      <p class="mobile-gate__body">I'm a product designer from Brasil, currently based in Porto and my portfolio is not ready for mobile yet. :P</p>
+    </div>
+    <div class="mobile-gate__footer">
+      <span class="mobile-gate__footer-text">desktop provides a better experience :)</span>
+    </div>
+  </aside>
 
   <!-- ════════════════════════════════════════
        HERO
