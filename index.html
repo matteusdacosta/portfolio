@@ -840,14 +840,15 @@
       .hero-text { left: 0; right: 0; }
     }
 
-    /* ─── Mobile viewport gate (< 1024px) ────────────────
+    /* ─── Mobile viewport gate (< 1000px) ────────────────
        The responsive layout is still in progress, so on any
-       viewport narrower than 1024px we cover the page with a
+       viewport narrower than 1000px we cover the page with a
        full-screen "come back on desktop" card. Hidden from
-       1024px up, where the real site renders. */
+       1000px up — safely below the ~1280px laptop floor, so
+       the real site always renders on desktops and laptops. */
     .mobile-gate { display: none; }
 
-    @media (max-width: 1023px) {
+    @media (max-width: 999px) {
       .mobile-gate {
         position: fixed;
         inset: 0;
@@ -922,7 +923,7 @@
 <body>
 
   <!-- ════════════════════════════════════════
-       MOBILE GATE — covers the viewport < 1024px
+       MOBILE GATE — covers the viewport < 1000px
        while the responsive layout is in progress
        ════════════════════════════════════════ -->
   <aside class="mobile-gate" role="region" aria-label="Mobile notice">
