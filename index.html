@@ -437,31 +437,65 @@
     }
     .about-body p + p { margin-top: 20px; }
 
-    .grid-scroll {
+    /* Polaroid + live "multiplayer" cursor (replaces the 6-photo grid) */
+    .polaroid-stage {
       flex: 1;
       min-width: 0;
-    }
-
-    .photo-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 258px);
-      gap: 8px;
-      width: 100%;
-    }
-
-    .tile {
       position: relative;
-      overflow: hidden;
-      background: var(--color-surface-placeholder);
-      width: 100%;
-      height: 258px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 524px;
     }
-    .tile img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+
+    .polaroid {
+      width: 340px;
+      padding: 16px 16px 0;
+      background: var(--color-white);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 18px 40px -12px rgba(0, 0, 0, .22);
+      rotate: -3deg;
+    }
+    .polaroid img {
       display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      background: var(--color-surface-placeholder);
+    }
+    .polaroid figcaption {
+      font-family: "Homemade Apple", cursive;
+      font-size: 15px;
+      color: var(--color-neutral-700);
+      padding: 18px 2px 22px;
+      line-height: 1.2;
+    }
+
+    /* Positioned by JS via transform; the tip of the arrow is the anchor */
+    .live-cursor {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: flex-start;
+      pointer-events: none;
+      will-change: transform;
+    }
+    .live-cursor svg {
+      width: 22px;
+      height: 22px;
+      flex: none;
+      filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .12));
+    }
+    .live-cursor__pill {
+      margin: 18px 0 0 2px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--color-accent);
+      color: var(--color-tech-green);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px -4px rgba(22, 71, 50, .25);
     }
 
     .contributed { margin-top: 120px; }
@@ -1080,14 +1114,16 @@
           </div>
         </div>
 
-        <div class="grid-scroll">
-          <div class="photo-grid" aria-label="Photo grid">
-            <div class="tile"><img src="assets/about-0.png" alt="Palm trees in Recife" /></div>
-            <div class="tile"><img src="assets/about-1.png" alt="Portrait of Matteus" /></div>
-            <div class="tile"><img src="assets/about-2.png" alt="Team in the field" /></div>
-            <div class="tile"><img src="assets/about-3.png" alt="Porto street at sunset" /></div>
-            <div class="tile"><img src="assets/about-4.png" alt="Passport photos" /></div>
-            <div class="tile"><img src="assets/about-5.png" alt="Cat on the keyboard" /></div>
+        <div class="polaroid-stage">
+          <figure class="polaroid">
+            <img src="assets/about-1.png" alt="Portrait of Matteus" />
+            <figcaption>Say cheeeeeeese [click]!</figcaption>
+          </figure>
+          <div class="live-cursor" aria-hidden="true">
+            <svg viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 2L19.5 8.6L11.6 11.6L8.6 19.5L2 2Z" style="fill: var(--color-accent)" stroke-linejoin="round"/>
+            </svg>
+            <span class="live-cursor__pill">Matteus da Costa</span>
           </div>
         </div>
 
@@ -1291,9 +1327,9 @@
       if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
       // grouped elements get a stagger; standalone ones reveal on their own
-      var groups  = [".grid-3 .work-card", ".grid-2 .hobby-card", ".photo-grid .tile", ".jobs .job"];
+      var groups  = [".grid-3 .work-card", ".grid-2 .hobby-card", ".jobs .job"];
       var singles = [".section-label", ".hobbies-intro", ".about-headline", ".about-location",
-                     ".about-body", ".contributed", ".exp-header"];
+                     ".about-body", ".polaroid", ".contributed", ".exp-header"];
       var targets = [];
 
       groups.forEach(function (sel) {
@@ -1318,6 +1354,60 @@
         el.classList.add("reveal");
         io.observe(el);
       });
+    })();
+
+    (function () {
+      // About: a "collaborator" cursor that drifts around the polaroid,
+      // and eases toward the visitor's pointer while it's over the stage
+      var stage  = document.querySelector(".polaroid-stage");
+      var cursor = stage && stage.querySelector(".live-cursor");
+      if (!cursor) return;
+
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var photo = stage.querySelector(".polaroid");
+      // spots hugging the photo's right edge, as fractions of the polaroid box
+      var spots = [[1.06, .28], [1.12, .62], [.92, .96], [1.04, .82], [1.14, .44]];
+      var spot = 0, pointer = null;
+      var pos = { x: 0, y: 0 }, target = { x: 0, y: 0 };
+
+      function spotTarget() {
+        var r = stage.getBoundingClientRect(), p = photo.getBoundingClientRect();
+        target.x = p.left - r.left + spots[spot][0] * p.width;
+        target.y = p.top - r.top + spots[spot][1] * p.height;
+      }
+      function place() {
+        cursor.style.transform = "translate3d(" + pos.x + "px," + pos.y + "px,0)";
+      }
+
+      spotTarget();
+      pos.x = target.x; pos.y = target.y;
+      place();
+      window.addEventListener("resize", function () { if (!pointer) spotTarget(); });
+      if (reduced) return;
+
+      setInterval(function () {
+        if (pointer) return;
+        spot = (spot + 1) % spots.length;
+        spotTarget();
+      }, 2600);
+
+      stage.addEventListener("pointermove", function (e) {
+        var r = stage.getBoundingClientRect();
+        pointer = { x: e.clientX - r.left + 14, y: e.clientY - r.top + 14 };
+      });
+      stage.addEventListener("pointerleave", function () { pointer = null; spotTarget(); });
+
+      (function tick(t) {
+        var goal = pointer || target;
+        // small idle wobble so it never sits perfectly still
+        var wx = pointer ? 0 : Math.sin(t / 900) * 6;
+        var wy = pointer ? 0 : Math.cos(t / 1100) * 5;
+        var ease = pointer ? .12 : .035;
+        pos.x += (goal.x + wx - pos.x) * ease;
+        pos.y += (goal.y + wy - pos.y) * ease;
+        place();
+        requestAnimationFrame(tick);
+      })(0);
     })();
 
     (function () {
