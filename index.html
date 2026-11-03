@@ -212,8 +212,7 @@
       isolation: isolate;
     }
 
-    .work-card::before,
-    .hobby-card::before {
+    .work-card::before {
       content: "";
       position: absolute;
       inset: -16px;
@@ -225,8 +224,7 @@
       z-index: -1;
     }
 
-    .work-card:hover::before,
-    .hobby-card:hover::before { opacity: 1; }
+    .work-card:hover::before { opacity: 1; }
 
     /* Image surface */
     .media {
@@ -314,7 +312,7 @@
     }
 
     /* Section 1 — Selected work */
-    .section-selected { padding-top: 112px; }
+    .section-selected { padding-top: 112px; padding-bottom: 112px; }
 
     .grid-3 {
       margin-top: 28px;
@@ -352,8 +350,8 @@
       letter-spacing: -0.01em;
     }
 
-    /* Section 3 — Hobbies */
-    .section-hobbies { margin-top: 112px; padding-bottom: 112px; }
+    /* Hobbies (inside About) */
+    .section-hobbies { margin-top: 120px; }
     .hobbies-intro {
       font-size: 16px;
       font-weight: 550;
@@ -380,6 +378,7 @@
     .about {
       width: 100%;
       background: var(--color-solar-yellow);
+      border-radius: 32px;
       padding: 120px 0 64px;
     }
 
@@ -1048,32 +1047,6 @@
             <a href="#" class="media" aria-label="Open case study">
               <img class="mockup" src="assets/tada-thumb.jpg" alt="" loading="lazy" decoding="async" />
               <span class="cta">Read case</span>
-            </a>
-          </article>
-
-        </div>
-      </section>
-
-      <!-- Hobbies -->
-      <section class="section-hobbies" aria-labelledby="hobbies-intro">
-        <p id="hobbies-intro" class="hobbies-intro">My hobbies</p>
-        <div class="grid-2">
-
-          <article class="hobby-card">
-            <div class="card-label">capturing my point of view</div>
-            <h3 class="card-title">Personal archive of not-so-personal photos</h3>
-            <a href="https://instagram.com/fotosdomatteus" class="media" aria-label="Open photo archive" target="_blank" rel="noopener">
-              <img class="mockup" src="assets/photosofmatteus-thumb.jpg" alt="" loading="lazy" decoding="async" />
-              <span class="cta">View archive</span>
-            </a>
-          </article>
-
-          <article class="hobby-card">
-            <div class="card-label">personal projects</div>
-            <h3 class="card-title">Redesigning old studies and much more</h3>
-            <a href="#" class="media" aria-label="Open studies">
-              <img class="mockup" src="assets/dribbble-thumb.jpg" alt="" loading="lazy" decoding="async" />
-              <span class="cta">View studies</span>
             </a>
           </article>
 
